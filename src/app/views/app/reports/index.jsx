@@ -4,7 +4,7 @@ const Reports = () => {
 
     return (
         <h1>
-            Reports....!
+            Reports Page....!
         </h1>
     );
 }
