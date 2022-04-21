@@ -18,10 +18,19 @@
   --btnbackground: #f4864d29;
   --primarycolor: #f4874f;
   --btnhovercolor: #f5894ecc;
+  --danger: red;
 }
 
 body {
   font-size: 12px !important;
+}
+
+.is-invalid .css-yk16xz-control {
+  border-color: var(--danger) !important;
+}
+
+.is-valid .css-yk16xz-control {
+  border-color: #50cd89 !important;
 }
 
 .example-highlight>pre {

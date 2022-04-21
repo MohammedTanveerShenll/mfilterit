@@ -6,20 +6,27 @@ import {
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
 import { Row, Col, Button, Card } from "react-bootstrap";
+import SelectField from '../../../../_metronic/_partials/controls/forms/SelectField';
 
 const initialValues = {
     username: '',
     email: '',
     confirm_password: '',
+    role: ''
 }
 
 const schema = yup.object().shape({
     username: yup.string().required(),
     email: yup.string().email().required(),
     confirm_password: yup.string().required(),
+    role: yup.string().required(),
 });
 
 export default function Users() {
+    const roles = [
+        { value: "1", label: "Admin" },
+        { value: "2", label: "Customer" },
+    ]
     return (
         <>
             <Card className="reportfilter-Ctr">
@@ -77,6 +84,18 @@ export default function Users() {
                                             placeholder="Enter password"
                                             label="Password"
                                             type="password"
+                                        />
+                                    </Col>
+
+                                    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                                        <Field
+                                            component={SelectField}
+                                            name="role" label="Role"
+                                            placeholder="Select Role"
+                                            option={roles}
+                                            values={values}
+                                            setFieldValue={setFieldValue}
+                                            handleBlur={handleBlur}
                                         />
                                     </Col>
 
