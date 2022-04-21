@@ -4,7 +4,7 @@ const ThreeSixtyDegree = () => {
 
     return (
         <h1>
-            ThreeSixtyDegree....!
+            ThreeSixtyDegree one....!
         </h1>
     );
 }
