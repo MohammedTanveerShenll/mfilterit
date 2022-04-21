@@ -62,10 +62,20 @@ export default function Users() {
 
                                     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                                         <Field
-                                            name="confirm_password"
+                                            name="phone"
                                             component={Input}
-                                            placeholder="Confirm Password"
-                                            label="Confirm Password"
+                                            placeholder="Enter phone number"
+                                            label="Phone Number"
+                                            type="number"
+                                        />
+                                    </Col>
+
+                                    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                                        <Field
+                                            name="password"
+                                            component={Input}
+                                            placeholder="Enter password"
+                                            label="Password"
                                             type="password"
                                         />
                                     </Col>
