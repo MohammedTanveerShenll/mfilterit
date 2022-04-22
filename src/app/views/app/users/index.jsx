@@ -106,7 +106,7 @@ export default function Users() {
                                             </Col>
                                             <Col xs={6} sm={6} md={6} lg={6} xl={6}>
                                                 <Button className="w-100">
-                                                    Reset
+                                                    Clear
                                                 </Button>
                                             </Col>
                                         </Row>

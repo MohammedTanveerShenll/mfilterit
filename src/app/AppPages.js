@@ -17,6 +17,9 @@ const Verification = lazy(() => import("./views/app/verification"));
 const WebFraudDashboard = lazy(() => import("./views/app/web-fraud-dashboard"));
 const ChangePassword = lazy(() => import("./views/app/changepassword"));
 const ErrorPage = lazy(() => import("./views/app/errors"));
+const PackageUser = lazy(() => import("./views/app/packageuser"));
+const UserManagement = lazy(() => import("./views/app/usermanagement"));
+const Verifications = lazy(() => import("./views/app/verifications"));
 
 export default function AppPages() {
 
@@ -26,9 +29,11 @@ export default function AppPages() {
                 {
                     <Redirect exact from="/" to="/dashboard" />
                 }
+                {/* usermanagement */}
                 <ContentRoute path="/360-degree" component={ThreeSixtyDegree} />
                 <ContentRoute path="/dashboard" component={Dashboard} />
                 <ContentRoute path="/demo" component={DemoPages} />
+                <ContentRoute path="/Verifications" component={Verifications} />
                 <ContentRoute path="/issues" component={Issues} />
                 <ContentRoute path="/packages" component={Packages} />
                 <ContentRoute path="/reports" component={Reports} />
@@ -38,6 +43,8 @@ export default function AppPages() {
                 <ContentRoute path="/verification" component={Verification} />
                 <ContentRoute path="/web-fraud-dashboard" component={WebFraudDashboard} />
                 <ContentRoute path="/changepassword" component={ChangePassword} />
+                <ContentRoute path="/package-user" component={PackageUser} />
+                <ContentRoute path="/usermanagement" component={UserManagement} />
                 <Redirect to="errors" />
             </Switch>
         </Suspense>
