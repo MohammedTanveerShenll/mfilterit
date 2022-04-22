@@ -17,6 +17,11 @@ import { toAbsoluteUrl } from "../../../../../src/_metronic/_helpers/index";
 import { InputGroup, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Formik, Form, Field } from "formik";
 import {data} from './data'
+import overlayFactory from 'react-bootstrap-table2-overlay';
+import "./index.css"; 
+import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import { Row, Col, Button} from "react-bootstrap";
+
 const Reports = () => {
     const [show, setEditShow] = useState(false);
     const handleEditShow = () => setEditShow(true);
@@ -34,6 +39,7 @@ const Reports = () => {
                 minWidth:'50px',
                 width: '100px'
              },
+           
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis" style={{width:'20px'}} >
@@ -49,6 +55,7 @@ const Reports = () => {
             style: {
                 width: '5%'
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -72,12 +79,13 @@ const Reports = () => {
             dataField: "sub_channel",
             text: "Sub Channel",
           sort:'true',
-        //   headerAlign: 'center',
+        // 
             style: {
                 width: '12%',
                 
                
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -104,6 +112,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -128,6 +137,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -152,6 +162,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -176,6 +187,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -200,6 +212,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -224,6 +237,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -248,6 +262,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -272,6 +287,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -296,6 +312,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -320,6 +337,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             headerStyle: {
               
                 minWidth:'150px',
@@ -349,6 +367,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -373,6 +392,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -397,6 +417,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -421,6 +442,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -445,6 +467,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -469,6 +492,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -493,6 +517,7 @@ const Reports = () => {
             style: {
                 width: "30%",
             },
+          
             headerStyle: {
               
                 minWidth:'150px',
@@ -522,6 +547,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -546,6 +572,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -580,6 +607,7 @@ const Reports = () => {
                 minWidth:'200px',
                 width: '200px'
              },
+           
             formatter: (cellContent, row) => {
                 return (
                     // <div className="text-ellipsis">
@@ -604,7 +632,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-            
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -624,11 +652,12 @@ const Reports = () => {
         },
         {
             dataField: "sub_publisher",
-            text: "sub_publisher",
+            text: "Sub Publisher",
             sort: true,
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -653,6 +682,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -682,6 +712,7 @@ const Reports = () => {
                 minWidth:'140px',
                 width: '150px'
              },
+           
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -706,6 +737,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
+          
             headerStyle: {
               
                 minWidth:'140px',
@@ -737,6 +769,7 @@ const Reports = () => {
                 width:'10%',
                 // width: '150px'
              },
+           
              headerStyle: {
               
                 minWidth:'40px',
@@ -756,6 +789,7 @@ const Reports = () => {
                 minWidth:'140px',
                 width: '150px'
              },
+           
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -830,28 +864,78 @@ const Reports = () => {
         paginationTotalRenderer: customTotal,
         disablePageTitle: true,
         sizePerPageList: [{
-            text: '10', value: 10
+            text: '5', value: 5
         }, {
-            text: '20', value: 20
+            text: '10', value: 10
         }] // A numeric array is also available. the purpose of above example is custom the text
     };
     
 
     return (
      <>
-      <div className="card card-custom">
+       <div className="card card-custom">
             <Card>
-                <CardHeader title="Incident Report">
-                    <CardHeaderToolbar>
-                        <div className="card-toolbar">
-                            <Link to="create" className="btn btn-primary font-weight-bolder
-                     font-size-sm mr-3">
-                                Create</Link>
-                        </div>
-                    </CardHeaderToolbar>
-                </CardHeader>
+            {/* <CardHeader title="Tickets list"> */}
+                        <CardHeaderToolbar>
+                        <InputGroup >
+                                {/* <input type="text" class="form-control" name="searchText" placeholder="Enter TicketID" />
+                                <button className="btn btn-primary font-weight-bolder font-size-sm mr-3">
+                                 <i class="fas fa-search"></i>
+                                </button> */}
+                 <Row  ml-5>
+                 <Col xs={6} sm={6} md={3} lg={1} xl={3}>
+                                <div class="input-group mw-100 ml-7">
+                <input class="form-control border-secondary py-2" type="search" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary font-weight-bolder font-size" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+</Col>
+<Col xs={6} sm={6} md={3} lg={1} xl={3}>
+            <div class="input-group mw-100">
+                <input class="form-control border-secondary py-2" type="search" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary font-weight-bolder font-size" type="button">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div>
+            </Col>
+            <Col xs={6} sm={6} md={1} lg={1} xl={1}>
+                                <button className="btn btn-primary font-weight-bolder font-size">
+                                Close Ticket    
+                                </button>
+                                </Col>
+                                <Col xs={6} sm={6} md={1} lg={1} xl={1}>
+                                    <button className="btn btn-primary font-weight-bolder font-size">
+                                    Create Ticket 
+                                    </button>
+                                    </Col>
+                                    <Col xs={6} sm={6} md={1} lg={1} xl={1}>
+                                    <button className="btn btn-primary font-weight-bolder font-size">
+                                   Save
+                                    </button>
+                                    </Col>
+                                    <Col xs={6} sm={6} md={1} lg={1} xl={1}>
+                                    <button className="btn btn-primary font-weight-bolder font-size">
+                                   Download
+                                    </button>
+                                    </Col>
+                                    </Row>
+                            </InputGroup>
+            
+                        </CardHeaderToolbar>
+                    {/* </CardHeader> */}
                 <CardBody>
                     <div className="App">
+            {/* { props => (          <ToolkitProvider
+  keyField="id"
+  data={ data }
+  columns={ columns }
+  search
+> */}
                         <BootstrapTable
                             bootstrap4
                             keyField="id"
@@ -859,22 +943,27 @@ const Reports = () => {
                             columns={columns}
                             pagination={paginationFactory(options)}
                             wrapperClasses="table-responsive"
-                            classes="table table-head-custom table-vertical-center"
+                            classes="table table-vertical-center header-class"
                             bordered={false}
                             selectRow={selectRow}
                             condensed
                             responsive
-                            
+                            overlay={ overlayFactory({ spinner: true, background: 'rgba(192,192,192,0.3)' }) }
+                            headerClasses="header-class"
+                            striped
+                            hover
+                           
                         />
+                        {/* </ToolkitProvider>)} */}
                     </div>
                 </CardBody>
             </Card>
 
 
         </div>
-
+      
      </>
-    );
+    )
 }
 
 export default Reports;
