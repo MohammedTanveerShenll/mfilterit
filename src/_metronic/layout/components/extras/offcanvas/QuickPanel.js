@@ -17,7 +17,14 @@ import Divider from '@material-ui/core/Divider';
 import { InputGroup, FormControl, Form } from 'react-bootstrap';
 import { Checkbox } from "../../../../_partials/controls";
 import DatePicker from "react-datepicker";
+// import SelectField from '../../../../../_metronic/_partials/controls/forms/SelectField';
+// import SelectField from '../../../../_metronic/_partials/controls/forms/SelectField';
+import Select from 'react-select'
+import {
 
+  Dropdown,
+  DropdownButton
+} from "react-bootstrap";
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -39,6 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
   column: {
     flexBasis: '33.33%',
+    
   },
   helper: {
     borderLeft: `2px solid ${theme.palette.divider}`,
@@ -51,6 +59,9 @@ const useStyles = makeStyles(theme => ({
       textDecoration: 'underline',
     },
   },
+  orange_color :{
+    color:'#f4874f'
+  }
 }));
 
 export function QuickPanel() {
@@ -63,12 +74,31 @@ export function QuickPanel() {
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-
+  const [myPackage,setMyPackage]= useState([{value:'',label:''}]);
+  const packages = [
+    { value: "itc", label: "itc" },
+    { value: "admin", label: "admin" },
+]
+const handleChange =(e)=>{
+  setMyPackage(e.value,e.label)
+}
+const CustomStyle = {
+  option: (base, state) => ({
+    ...base,
+    color: state.selectProps.menuColor
+  })
+}
   return (
     <div id="kt_quick_panel" className="offcanvas offcanvas-right pt-5 pb-10 pl-5 pr-5">
+      <div className="row pt-5 align-items-center">
+      <div className="col-md-12">
+      <label className={classes.orange_color}>Select Any Package</label>
+      <Select options={packages} onChange={handleChange} menuColor='#f4874f' styles={CustomStyle}/>
+      </div>
+      </div>
       <div>
         <div>
-          <h4>Advance Search</h4>
+          <h4 className={classes.orange_color}>Advance Search</h4>
         </div>
         <div className="offcanvas-close mt-n1 pr-5" style={{ position: "absolute", top: "15px", right: "10px" }}>
           <a href="#" className="btn btn-xs btn-icon btn-light btn-hover-primary" id="kt_quick_panel_close">
@@ -79,7 +109,7 @@ export function QuickPanel() {
 
       <div className="search-panel mt-8">
 
-        <label>Choose Start & End Date</label>
+        <label className={classes.orange_color}>Choose Start & End Date</label>
 
         <div className="row">
           <div className="col-md-6">
@@ -88,6 +118,7 @@ export function QuickPanel() {
               onChange={(date) => setStartDate(date)}
               isClearable
               placeholderText="Choose Start Date"
+              
             />
           </div>
           <div className="col-md-6">
@@ -110,15 +141,18 @@ export function QuickPanel() {
               id="panel1c-header"
             >
               <div className={classes.column}>
-                <Typography className={classes.heading}>
-                  <h6 className="mb-0">Channels</h6>
+                <Typography 
+                className={ clsx(classes.heading, classes.orange_color)}>
+                  <h6 className="mb-0" >Channels</h6>
                 </Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={classes.secondaryHeading}></Typography>
+                <Typography
+                 className={ clsx(classes.secondaryHeading, classes.orange_color)}>
+                </Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={classes.secondaryHeading}>0 Selected</Typography>
+                <Typography className={ clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
               </div>
             </ExpansionPanelSummary>
             <Divider />
@@ -138,8 +172,8 @@ export function QuickPanel() {
                 </InputGroup>
               </div>
             </ExpansionPanelActions>
-            <ExpansionPanelDetails className={classes.details}>
-              <Form.Group controlId="formBasicChecbox" className="checkbox-inner mb-0">
+            <ExpansionPanelDetails  className={classes.details}>
+              <Form.Group controlId="formBasicChecbox" className="checkbox-inner mb-0" >
                 <Checkbox children="Organic Search" />
                 <Checkbox children="Youtube" />
                 <Checkbox children="Q & A" />
@@ -155,15 +189,18 @@ export function QuickPanel() {
               id="panel1c-header"
             >
               <div className={classes.column}>
-                <Typography className={classes.heading}>
+                <Typography className={ clsx(classes.heading, classes.orange_color)}
+                >
                   <h6 className="mb-0">Categorires</h6>
                 </Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={classes.secondaryHeading}></Typography>
+                <Typography 
+                className={ clsx(classes.secondaryHeading, classes.orange_color)}
+                ></Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={classes.secondaryHeading}>0 Selected</Typography>
+                <Typography className={ clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
               </div>
             </ExpansionPanelSummary>
             <Divider />
@@ -199,15 +236,19 @@ export function QuickPanel() {
               id="panel1c-header"
             >
               <div className={classes.column}>
-                <Typography className={classes.heading}>
+                <Typography 
+                 className={ clsx(classes.heading, classes.orange_color)}
+                >
                   <h6 className="mb-0">Publishers</h6>
                 </Typography>
               </div>
               <div className={classes.column}>
                 <Typography className={classes.secondaryHeading}></Typography>
               </div>
-              <div className={classes.column}>
-                <Typography className={classes.secondaryHeading}>0 Selected</Typography>
+              <div className={classes.column}
+              
+              >
+                <Typography className={ clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
               </div>
             </ExpansionPanelSummary>
             <Divider />
@@ -254,16 +295,19 @@ export function QuickPanel() {
               aria-controls="panel1c-content"
               id="panel1c-header"
             >
-              <div className={classes.column}>
-                <Typography className={classes.heading}>
+              <div 
+              className={classes.column}>
+                <Typography 
+                className={ clsx(classes.heading, classes.orange_color)}
+                >
                   <h6 className="mb-0">Countries</h6>
                 </Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={classes.secondaryHeading}></Typography>
+                <Typography className={ clsx(classes.secondaryHeading, classes.orange_color)}></Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={classes.secondaryHeading}>0 Selected</Typography>
+                <Typography className={ clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
               </div>
             </ExpansionPanelSummary>
             <Divider />
@@ -297,15 +341,19 @@ export function QuickPanel() {
               id="panel1c-header"
             >
               <div className={classes.column}>
-                <Typography className={classes.heading}>
+                <Typography 
+                      className={ clsx(classes.heading, classes.orange_color)}
+                >
                   <h6 className="mb-0">Brands</h6>
                 </Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={classes.secondaryHeading}></Typography>
+                <Typography className={ clsx(classes.secondaryHeading, classes.orange_color)}></Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={classes.secondaryHeading}>0 Selected</Typography>
+                <Typography 
+                      className={ clsx(classes.secondaryHeading, classes.orange_color)}
+                >0 Selected</Typography>
               </div>
             </ExpansionPanelSummary>
             <Divider />
