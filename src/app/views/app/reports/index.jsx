@@ -882,9 +882,9 @@ const Reports = () => {
                                 <button className="btn btn-primary font-weight-bolder font-size-sm mr-3">
                                  <i class="fas fa-search"></i>
                                 </button> */}
-                 <Row  ml-5>
-                 <Col xs={6} sm={6} md={3} lg={1} xl={3}>
-                                <div class="input-group mw-100 ml-7">
+                 <Row style={{marginTop:'14px',marginBottom:'-25px'}}> 
+                 <Col xs={6} sm={6} md={3} lg={1} xl={3} style={{marginLeft:'32px',marginRight:'-14px'}}>
+                                <div class="input-group">
                 <input class="form-control border-secondary py-2" type="search" />
                 <div class="input-group-append">
                     <button class="btn btn-primary font-weight-bolder font-size" type="button">
@@ -893,7 +893,7 @@ const Reports = () => {
                 </div>
             </div>
 </Col>
-<Col xs={6} sm={6} md={3} lg={1} xl={3}>
+<Col xs={6} sm={6} md={3} lg={1} xl={3} style={{marginRight:'-8px'}}>
             <div class="input-group mw-100">
                 <input class="form-control border-secondary py-2" type="search" />
                 <div class="input-group-append">
@@ -903,12 +903,12 @@ const Reports = () => {
                 </div>
             </div>
             </Col>
-            <Col xs={6} sm={6} md={1} lg={1} xl={1}>
+            <Col xs={6} sm={6} md={1} lg={1} xl={2} style={{marginRight:'-35px'}}>
                                 <button className="btn btn-primary font-weight-bolder font-size">
                                 Close Ticket    
                                 </button>
                                 </Col>
-                                <Col xs={6} sm={6} md={1} lg={1} xl={1}>
+                                <Col xs={6} sm={6} md={1} lg={1} xl={2} style={{marginRight:'-24px'}}>
                                     <button className="btn btn-primary font-weight-bolder font-size">
                                     Create Ticket 
                                     </button>
