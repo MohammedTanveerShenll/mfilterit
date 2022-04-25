@@ -1,8 +1,5 @@
 /* eslint-disable no-restricted-imports */
-import React, { useState } from "react";
-import SVG from "react-inlinesvg";
-import { Tab, Nav } from "react-bootstrap";
-import { toAbsoluteUrl } from "../../../../_helpers";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -11,20 +8,15 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelActions from '@material-ui/core/ExpansionPanelActions';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Chip from '@material-ui/core/Chip';
-import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import { InputGroup, FormControl, Form } from 'react-bootstrap';
 import { Checkbox } from "../../../../_partials/controls";
 import DatePicker from "react-datepicker";
-// import SelectField from '../../../../../_metronic/_partials/controls/forms/SelectField';
-// import SelectField from '../../../../_metronic/_partials/controls/forms/SelectField';
-import Select from 'react-select'
-import {
+import Select from 'react-select';
+import { connect } from 'react-redux';
+import FetchTotalIncidents from "../../../../../../src/redux/actions/DashboardActions";
+import { useLocation } from 'react-router-dom'
 
-  Dropdown,
-  DropdownButton
-} from "react-bootstrap";
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -46,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
   column: {
     flexBasis: '33.33%',
-    
+
   },
   helper: {
     borderLeft: `2px solid ${theme.palette.divider}`,
@@ -59,42 +51,42 @@ const useStyles = makeStyles(theme => ({
       textDecoration: 'underline',
     },
   },
-  orange_color :{
-    color:'#f4874f'
-  }
+  // orange_color :{
+  //   color:'#f4874f'
+  // }
 }));
 
 export function QuickPanel() {
+  const pathName = useLocation().pathname
   const classes = useStyles();
   const [selectedTab, setSelectedTab] = useState("AuditLogs");
-
   const setTab = _tabName => {
     setSelectedTab(_tabName);
   };
-
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [myPackage,setMyPackage]= useState([{value:'',label:''}]);
+  const [myPackage, setMyPackage] = useState([{ value: 'itc', label: 'itc' }]);
   const packages = [
     { value: "itc", label: "itc" },
     { value: "admin", label: "admin" },
-]
-const handleChange =(e)=>{
-  setMyPackage(e.value,e.label)
-}
-const CustomStyle = {
-  option: (base, state) => ({
-    ...base,
-    color: state.selectProps.menuColor
+  ]
+  const handleChange = (e) => {
+    setMyPackage(e.value, e.label)
+    console.log(myPackage)
+  }
+
+  useEffect(() => {
+    console.log(pathName)
   })
-}
+
   return (
     <div id="kt_quick_panel" className="offcanvas offcanvas-right pt-5 pb-10 pl-5 pr-5">
       <div className="row pt-5 align-items-center">
-      <div className="col-md-12">
-      <label className={classes.orange_color}>Select Any Package</label>
-      <Select options={packages} onChange={handleChange} menuColor='#f4874f' styles={CustomStyle}/>
-      </div>
+        <div className="col-md-12">
+          <label className={classes.orange_color}>Select Any Package</label>
+          <Select options={packages} onChange={handleChange}
+            menuColor='#f4874f' />
+        </div>
       </div>
       <div>
         <div>
@@ -118,7 +110,7 @@ const CustomStyle = {
               onChange={(date) => setStartDate(date)}
               isClearable
               placeholderText="Choose Start Date"
-              
+
             />
           </div>
           <div className="col-md-6">
@@ -141,18 +133,18 @@ const CustomStyle = {
               id="panel1c-header"
             >
               <div className={classes.column}>
-                <Typography 
-                className={ clsx(classes.heading, classes.orange_color)}>
+                <Typography
+                  className={clsx(classes.heading, classes.orange_color)}>
                   <h6 className="mb-0" >Channels</h6>
                 </Typography>
               </div>
               <div className={classes.column}>
                 <Typography
-                 className={ clsx(classes.secondaryHeading, classes.orange_color)}>
+                  className={clsx(classes.secondaryHeading, classes.orange_color)}>
                 </Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={ clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
+                <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
               </div>
             </ExpansionPanelSummary>
             <Divider />
@@ -172,7 +164,7 @@ const CustomStyle = {
                 </InputGroup>
               </div>
             </ExpansionPanelActions>
-            <ExpansionPanelDetails  className={classes.details}>
+            <ExpansionPanelDetails className={classes.details}>
               <Form.Group controlId="formBasicChecbox" className="checkbox-inner mb-0" >
                 <Checkbox children="Organic Search" />
                 <Checkbox children="Youtube" />
@@ -189,18 +181,18 @@ const CustomStyle = {
               id="panel1c-header"
             >
               <div className={classes.column}>
-                <Typography className={ clsx(classes.heading, classes.orange_color)}
+                <Typography className={clsx(classes.heading, classes.orange_color)}
                 >
                   <h6 className="mb-0">Categorires</h6>
                 </Typography>
               </div>
               <div className={classes.column}>
-                <Typography 
-                className={ clsx(classes.secondaryHeading, classes.orange_color)}
+                <Typography
+                  className={clsx(classes.secondaryHeading, classes.orange_color)}
                 ></Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={ clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
+                <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
               </div>
             </ExpansionPanelSummary>
             <Divider />
@@ -236,8 +228,8 @@ const CustomStyle = {
               id="panel1c-header"
             >
               <div className={classes.column}>
-                <Typography 
-                 className={ clsx(classes.heading, classes.orange_color)}
+                <Typography
+                  className={clsx(classes.heading, classes.orange_color)}
                 >
                   <h6 className="mb-0">Publishers</h6>
                 </Typography>
@@ -246,9 +238,9 @@ const CustomStyle = {
                 <Typography className={classes.secondaryHeading}></Typography>
               </div>
               <div className={classes.column}
-              
+
               >
-                <Typography className={ clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
+                <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
               </div>
             </ExpansionPanelSummary>
             <Divider />
@@ -295,19 +287,19 @@ const CustomStyle = {
               aria-controls="panel1c-content"
               id="panel1c-header"
             >
-              <div 
-              className={classes.column}>
-                <Typography 
-                className={ clsx(classes.heading, classes.orange_color)}
+              <div
+                className={classes.column}>
+                <Typography
+                  className={clsx(classes.heading, classes.orange_color)}
                 >
                   <h6 className="mb-0">Countries</h6>
                 </Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={ clsx(classes.secondaryHeading, classes.orange_color)}></Typography>
+                <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}></Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={ clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
+                <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
               </div>
             </ExpansionPanelSummary>
             <Divider />
@@ -341,18 +333,18 @@ const CustomStyle = {
               id="panel1c-header"
             >
               <div className={classes.column}>
-                <Typography 
-                      className={ clsx(classes.heading, classes.orange_color)}
+                <Typography
+                  className={clsx(classes.heading, classes.orange_color)}
                 >
                   <h6 className="mb-0">Brands</h6>
                 </Typography>
               </div>
               <div className={classes.column}>
-                <Typography className={ clsx(classes.secondaryHeading, classes.orange_color)}></Typography>
+                <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}></Typography>
               </div>
               <div className={classes.column}>
-                <Typography 
-                      className={ clsx(classes.secondaryHeading, classes.orange_color)}
+                <Typography
+                  className={clsx(classes.secondaryHeading, classes.orange_color)}
                 >0 Selected</Typography>
               </div>
             </ExpansionPanelSummary>
@@ -389,3 +381,17 @@ const CustomStyle = {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  // const { editAMLStore } = state
+  return {
+    // loading: state && state.editAMLStore && state.editAMLStore.loading,
+    // AMLIdDetailsReponse: editAMLStore && editAMLStore.AMLIdDetail ? editAMLStore.AMLIdDetail : {},
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  // getAMLIdDispatch: (id) => dispatch(AMLGetIdActions.getAMLIdDetails(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuickPanel)

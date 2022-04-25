@@ -33,7 +33,7 @@ export default function AppPages() {
                 <ContentRoute path="/360-degree" component={ThreeSixtyDegree} />
                 <ContentRoute path="/dashboard" component={Dashboard} />
                 <ContentRoute path="/demo" component={DemoPages} />
-                <ContentRoute path="/Verifications" component={Verifications} />
+                <ContentRoute path="/verifications" component={Verifications} />
                 <ContentRoute path="/issues" component={Issues} />
                 <ContentRoute path="/packages" component={Packages} />
                 <ContentRoute path="/reports" component={Reports} />

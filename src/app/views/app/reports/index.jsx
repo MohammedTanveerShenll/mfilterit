@@ -13,14 +13,13 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import SVG from "react-inlinesvg";
 import { toAbsoluteUrl } from "../../../../../src/_metronic/_helpers/index";
-
 import { InputGroup, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Formik, Form, Field } from "formik";
-import {data} from './data'
-import overlayFactory from 'react-bootstrap-table2-overlay';
-import "./index.css"; 
-import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
-import { Row, Col, Button} from "react-bootstrap";
+import { data } from './data'
+// import overlayFactory from 'react-bootstrap-table2-overlay';
+import "./index.css";
+// import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
+import { Row, Col, Button } from "react-bootstrap";
 
 const Reports = () => {
     const [show, setEditShow] = useState(false);
@@ -31,18 +30,18 @@ const Reports = () => {
             text: "ID",
             sort: true,
             style: {
-             
+
                 width: '10px'
             },
             headerStyle: {
                 // backgroundColor: 'green',
-                minWidth:'50px',
+                minWidth: '50px',
                 width: '100px'
-             },
-           
+            },
+
             formatter: (cellContent, row) => {
                 return (
-                    <div className="text-ellipsis" style={{width:'20px'}} >
+                    <div className="text-ellipsis" style={{ width: '20px' }} >
                         <a onClick={handleEditShow} style={{ color: "#3699ff" }}> {row.id}</a>
                     </div>
                 );
@@ -51,11 +50,11 @@ const Reports = () => {
         {
             dataField: "date",
             text: "Date",
-             sort:true,
+            sort: true,
             style: {
                 width: '5%'
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -67,25 +66,25 @@ const Reports = () => {
                                 </Tooltip>
                             }
                         > */}
-                            <span>{row.date}</span>
+                        <span>{row.date}</span>
                         {/* </OverlayTrigger> */}
                     </div>
                 );
             }
-            
-            
+
+
         },
         {
             dataField: "sub_channel",
             text: "Sub Channel",
-          sort:'true',
-        // 
+            sort: 'true',
+            // 
             style: {
                 width: '12%',
-                
-               
+
+
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -102,17 +101,17 @@ const Reports = () => {
                     </div>
                 );
             }
-          
-            
+
+
         },
         {
             dataField: "sub_sub_channel",
             text: "Sub Channel",
-            sort:true,
+            sort: true,
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -133,11 +132,11 @@ const Reports = () => {
         {
             dataField: "channel",
             text: "Channel",
-            sort:true,
+            sort: true,
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -158,11 +157,11 @@ const Reports = () => {
         {
             dataField: "location",
             text: "Location",
-            sort:true,
+            sort: true,
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -183,11 +182,11 @@ const Reports = () => {
         {
             dataField: "brand",
             text: "Brand",
-            sort:true,
+            sort: true,
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -208,11 +207,11 @@ const Reports = () => {
         {
             dataField: "keyword",
             text: "Keyword",
-            sort:true,
+            sort: true,
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -233,11 +232,11 @@ const Reports = () => {
         {
             dataField: "country",
             text: "Country",
-            sort:true,
+            sort: true,
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -258,11 +257,11 @@ const Reports = () => {
         {
             dataField: "category",
             text: "Category",
-            sort:true,
+            sort: true,
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -283,11 +282,11 @@ const Reports = () => {
         {
             dataField: "sub_category",
             text: "Sub Category",
-            sort:true,
+            sort: true,
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -312,7 +311,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -337,12 +336,12 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             headerStyle: {
-              
-                minWidth:'150px',
+
+                minWidth: '150px',
                 width: '150px'
-             },
+            },
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -367,7 +366,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -392,7 +391,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -417,7 +416,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -442,7 +441,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -467,7 +466,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -492,7 +491,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -517,12 +516,12 @@ const Reports = () => {
             style: {
                 width: "30%",
             },
-          
+
             headerStyle: {
-              
-                minWidth:'150px',
+
+                minWidth: '150px',
                 width: '150px'
-             },
+            },
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -547,7 +546,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -572,7 +571,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -596,31 +595,31 @@ const Reports = () => {
             // sort: true,
             style: {
                 width: '22%',
-                
-                    
 
 
-                  
+
+
+
             },
             headerStyle: {
-              
-                minWidth:'200px',
+
+                minWidth: '200px',
                 width: '200px'
-             },
-           
+            },
+
             formatter: (cellContent, row) => {
                 return (
                     // <div className="text-ellipsis">
-                        <OverlayTrigger
-                            placement="left"
-                            overlay={
-                                <Tooltip id={`tooltip-left`}>
-                                    {row.destination_url_domain}
-                                </Tooltip>
-                            }
-                        >
-                            <span>{row.destination_url_domain}</span>
-                        </OverlayTrigger>
+                    <OverlayTrigger
+                        placement="left"
+                        overlay={
+                            <Tooltip id={`tooltip-left`}>
+                                {row.destination_url_domain}
+                            </Tooltip>
+                        }
+                    >
+                        <span>{row.destination_url_domain}</span>
+                    </OverlayTrigger>
                     // </div>
                 );
             }
@@ -632,7 +631,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -657,7 +656,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -682,7 +681,7 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -708,11 +707,11 @@ const Reports = () => {
                 width: '12%',
             },
             headerStyle: {
-              
-                minWidth:'140px',
+
+                minWidth: '140px',
                 width: '150px'
-             },
-           
+            },
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -737,12 +736,12 @@ const Reports = () => {
             style: {
                 width: '12%',
             },
-          
+
             headerStyle: {
-              
-                minWidth:'140px',
+
+                minWidth: '140px',
                 width: '150px'
-             },
+            },
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -765,18 +764,18 @@ const Reports = () => {
             text: "TAT",
             sort: true,
             style: {
-              
-                width:'10%',
+
+                width: '10%',
                 // width: '150px'
-             },
-           
-             headerStyle: {
-              
-                minWidth:'40px',
+            },
+
+            headerStyle: {
+
+                minWidth: '40px',
                 width: '50px'
-             },
+            },
         },
-        
+
         {
             dataField: "ticket_open_status",
             text: "Ticket Open Status",
@@ -785,11 +784,11 @@ const Reports = () => {
                 width: '12%',
             },
             headerStyle: {
-              
-                minWidth:'140px',
+
+                minWidth: '140px',
                 width: '150px'
-             },
-           
+            },
+
             formatter: (cellContent, row) => {
                 return (
                     <div className="text-ellipsis">
@@ -807,7 +806,7 @@ const Reports = () => {
                 );
             }
         },
-        
+
         {
             dataField: "status",
             text: "Status",
@@ -830,22 +829,22 @@ const Reports = () => {
                 );
             }
         }
-      
-        
+
+
     ];
-    
+
     const customTotal = (from, to, size) => (
         <span className="react-bootstrap-table-pagination-total ml-3">
             Showing {from} to {to} of {size} Results
         </span>
     );
-    
+
     const selectRow = {
         mode: "checkbox",
         clickToSelect: true,
         hideSelectAll: false,
     };
-    
+
     const options = {
         paginationSize: 4,
         alwaysShowAllBtns: true, // Always show next and previous button
@@ -869,100 +868,100 @@ const Reports = () => {
             text: '10', value: 10
         }] // A numeric array is also available. the purpose of above example is custom the text
     };
-    
+
 
     return (
-     <>
-       <div className="card card-custom">
-            <Card>
-            {/* <CardHeader title="Tickets list"> */}
-                        <CardHeaderToolbar>
+        <>
+            <div className="card card-custom">
+                <Card>
+                    {/* <CardHeader title="Tickets list"> */}
+                    <CardHeaderToolbar>
                         <InputGroup >
-                                {/* <input type="text" class="form-control" name="searchText" placeholder="Enter TicketID" />
+                            {/* <input type="text" class="form-control" name="searchText" placeholder="Enter TicketID" />
                                 <button className="btn btn-primary font-weight-bolder font-size-sm mr-3">
                                  <i class="fas fa-search"></i>
                                 </button> */}
-                 <Row style={{marginTop:'14px',marginBottom:'-25px'}}> 
-                 <Col xs={6} sm={6} md={3} lg={1} xl={3} style={{marginLeft:'32px',marginRight:'-14px'}}>
-                                <div class="input-group">
-                <input class="form-control border-secondary py-2" type="search" />
-                <div class="input-group-append">
-                    <button class="btn btn-primary font-weight-bolder font-size" type="button">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-</Col>
-<Col xs={6} sm={6} md={3} lg={1} xl={3} style={{marginRight:'-8px'}}>
-            <div class="input-group mw-100">
-                <input class="form-control border-secondary py-2" type="search" />
-                <div class="input-group-append">
-                    <button class="btn btn-primary font-weight-bolder font-size" type="button">
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
-            </div>
-            </Col>
-            <Col xs={6} sm={6} md={1} lg={1} xl={2} style={{marginRight:'-35px'}}>
-                                <button className="btn btn-primary font-weight-bolder font-size">
-                                Close Ticket    
-                                </button>
+                            <Row style={{ marginTop: '14px', marginBottom: '-25px' }}>
+                                <Col xs={6} sm={6} md={3} lg={1} xl={3} style={{ marginLeft: '32px', marginRight: '-14px' }}>
+                                    <div class="input-group">
+                                        <input class="form-control border-secondary py-2" type="search" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary font-weight-bolder font-size" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </Col>
-                                <Col xs={6} sm={6} md={1} lg={1} xl={2} style={{marginRight:'-24px'}}>
+                                <Col xs={6} sm={6} md={3} lg={1} xl={3} style={{ marginRight: '-8px' }}>
+                                    <div class="input-group mw-100">
+                                        <input class="form-control border-secondary py-2" type="search" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary font-weight-bolder font-size" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </Col>
+                                <Col xs={6} sm={6} md={1} lg={1} xl={2} style={{ marginRight: '-35px' }}>
                                     <button className="btn btn-primary font-weight-bolder font-size">
-                                    Create Ticket 
+                                        Close Ticket
                                     </button>
-                                    </Col>
-                                    <Col xs={6} sm={6} md={1} lg={1} xl={1}>
+                                </Col>
+                                <Col xs={6} sm={6} md={1} lg={1} xl={2} style={{ marginRight: '-24px' }}>
                                     <button className="btn btn-primary font-weight-bolder font-size">
-                                   Save
+                                        Create Ticket
                                     </button>
-                                    </Col>
-                                    <Col xs={6} sm={6} md={1} lg={1} xl={1}>
+                                </Col>
+                                <Col xs={6} sm={6} md={1} lg={1} xl={1}>
                                     <button className="btn btn-primary font-weight-bolder font-size">
-                                   Download
+                                        Save
                                     </button>
-                                    </Col>
-                                    </Row>
-                            </InputGroup>
-            
-                        </CardHeaderToolbar>
+                                </Col>
+                                <Col xs={6} sm={6} md={1} lg={1} xl={1}>
+                                    <button className="btn btn-primary font-weight-bolder font-size">
+                                        Download
+                                    </button>
+                                </Col>
+                            </Row>
+                        </InputGroup>
+
+                    </CardHeaderToolbar>
                     {/* </CardHeader> */}
-                <CardBody>
-                    <div className="App">
-            {/* { props => (          <ToolkitProvider
+                    <CardBody>
+                        <div className="App">
+                            {/* { props => (          <ToolkitProvider
   keyField="id"
   data={ data }
   columns={ columns }
   search
 > */}
-                        <BootstrapTable
-                            bootstrap4
-                            keyField="id"
-                            data={data}
-                            columns={columns}
-                            pagination={paginationFactory(options)}
-                            wrapperClasses="table-responsive"
-                            classes="table table-vertical-center header-class"
-                            bordered={false}
-                            selectRow={selectRow}
-                            condensed
-                            responsive
-                            overlay={ overlayFactory({ spinner: true, background: 'rgba(192,192,192,0.3)' }) }
-                            headerClasses="header-class"
-                            striped
-                            hover
-                           
-                        />
-                        {/* </ToolkitProvider>)} */}
-                    </div>
-                </CardBody>
-            </Card>
+                            <BootstrapTable
+                                bootstrap4
+                                keyField="id"
+                                data={data}
+                                columns={columns}
+                                pagination={paginationFactory(options)}
+                                wrapperClasses="table-responsive"
+                                classes="table table-vertical-center header-class"
+                                bordered={false}
+                                selectRow={selectRow}
+                                condensed
+                                responsive
+                                // overlay={ overlayFactory({ spinner: true, background: 'rgba(192,192,192,0.3)' }) }
+                                headerClasses="header-class"
+                                striped
+                                hover
+
+                            />
+                            {/* </ToolkitProvider>)} */}
+                        </div>
+                    </CardBody>
+                </Card>
 
 
-        </div>
-      
-     </>
+            </div>
+
+        </>
     )
 }
 

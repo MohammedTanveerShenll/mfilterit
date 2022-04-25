@@ -160,7 +160,7 @@ export function AsideMenuList({ layoutProps }) {
                         <li
                             className={`menu-item ${getMenuItemActive("verifications")}`}
                             aria-haspopup="true">
-                            <NavLink className="menu-link" to="/verifications">
+                            <NavLink className="menu-link" to="/verifications/bulk-verification">
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">Bulk Verification</span>
                             </NavLink>
@@ -168,7 +168,7 @@ export function AsideMenuList({ layoutProps }) {
                         <li
                             className={`menu-item ${getMenuItemActive("world-watch-screening")}`}
                             aria-haspopup="true">
-                            <NavLink className="menu-link" to="world-watch-screening">
+                            <NavLink className="menu-link" to="/verifications/world-watch-screening">
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">World Watch Streaming</span>
                             </NavLink>
@@ -176,7 +176,7 @@ export function AsideMenuList({ layoutProps }) {
                         <li
                             className={`menu-item ${getMenuItemActive("vehicle-detail")}`}
                             aria-haspopup="true">
-                            <NavLink className="menu-link" to="vehicle-detail">
+                            <NavLink className="menu-link" to="/verifications/vehicle-detail">
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">Vehicle Detail</span>
                             </NavLink>
@@ -184,7 +184,7 @@ export function AsideMenuList({ layoutProps }) {
                         <li
                             className={`menu-item ${getMenuItemActive("policy")}`}
                             aria-haspopup="true">
-                            <NavLink className="menu-link" to="policy">
+                            <NavLink className="menu-link" to="/verifications/policy">
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">Policy</span>
                             </NavLink>
@@ -192,7 +192,7 @@ export function AsideMenuList({ layoutProps }) {
                         <li
                             className={`menu-item ${getMenuItemActive("phone")}`}
                             aria-haspopup="true">
-                            <NavLink className="menu-link" to="phone">
+                            <NavLink className="menu-link" to="/verifications/phone">
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">Phone</span>
                             </NavLink>
@@ -200,7 +200,7 @@ export function AsideMenuList({ layoutProps }) {
                         <li
                             className={`menu-item ${getMenuItemActive("passport-check")}`}
                             aria-haspopup="true">
-                            <NavLink className="menu-link" to="passport-check">
+                            <NavLink className="menu-link" to="/verifications/passport-check">
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">Passport Check</span>
                             </NavLink>
@@ -208,7 +208,7 @@ export function AsideMenuList({ layoutProps }) {
                         <li
                             className={`menu-item ${getMenuItemActive("pan-gst-check")}`}
                             aria-haspopup="true">
-                            <NavLink className="menu-link" to="pan-gst-check">
+                            <NavLink className="menu-link" to="/verifications/pan-gst-check">
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">Pan Gst Check</span>
                             </NavLink>
@@ -216,7 +216,7 @@ export function AsideMenuList({ layoutProps }) {
                         <li
                             className={`menu-item ${getMenuItemActive("pan-card-check")}`}
                             aria-haspopup="true">
-                            <NavLink className="menu-link" to="pan-card-check">
+                            <NavLink className="menu-link" to="/verifications/pan-card-check">
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">Pan Card Check</span>
                             </NavLink>
@@ -224,7 +224,7 @@ export function AsideMenuList({ layoutProps }) {
                         <li
                             className={`menu-item ${getMenuItemActive("number-data-check")}`}
                             aria-haspopup="true">
-                            <NavLink className="menu-link" to="number-data-check">
+                            <NavLink className="menu-link" to="/verifications/number-data-check">
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">Number Data Check</span>
                             </NavLink>
@@ -232,7 +232,7 @@ export function AsideMenuList({ layoutProps }) {
                         <li
                             className={`menu-item ${getMenuItemActive("location")}`}
                             aria-haspopup="true">
-                            <NavLink className="menu-link" to="location">
+                            <NavLink className="menu-link" to="/verifications/location">
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">Location</span>
                             </NavLink>
@@ -240,7 +240,7 @@ export function AsideMenuList({ layoutProps }) {
                         <li
                             className={`menu-item ${getMenuItemActive("email")}`}
                             aria-haspopup="true">
-                            <NavLink className="menu-link" to="email">
+                            <NavLink className="menu-link" to="/verifications/email">
                                 <i className="menu-bullet menu-bullet-dot"><span /></i>
                                 <span className="menu-text">Email</span>
                             </NavLink>

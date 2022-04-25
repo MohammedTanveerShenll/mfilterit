@@ -324,11 +324,11 @@ body {
 }
 
 .makeStyles-root-14 {
-  min-height: 70vh;
-  max-height: 70vh;
-  height: 70vh;
+  // min-height: 70vh;
+  // max-height: 70vh;
+  height: 300px;
   overflow-y: auto;
-  padding-bottom: 20px;
+
 }
 
 .MuiPaper-elevation1 {
@@ -417,6 +417,12 @@ body {
   width: 60%;
 }
 
-.checkbox-inner .checkbox{
+.checkbox-inner .checkbox {
   color: #f3894e;
+}
+
+@media (min-width: 992px) {
+  .header-fixed.subheader-fixed.subheader-enabled .wrapper {
+    padding-top: 70px !important;
+  }
 }
