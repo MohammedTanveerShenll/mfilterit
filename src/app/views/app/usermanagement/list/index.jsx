@@ -11,6 +11,7 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import SVG from "react-inlinesvg";
 import { toAbsoluteUrl } from "../../../../../../src/_metronic/_helpers/index";
+import { InputGroup, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 
 const data = [
@@ -28,17 +29,78 @@ const columns = [
     {
         dataField: "package_name",
         text: "Package Name",
+        style: {
+             
+            width: '10px'
+        },
+        headerStyle: {
+            // backgroundColor: 'green',
+            minWidth:'200px',
+            width: '100px'
+         }
     },
+    
     {
         dataField: "menu",
         text: "Menu",
+        style: {
+             
+            width: '10px'
+        },
+        headerStyle: {
+            // backgroundColor: 'green',
+            minWidth:'100px',
+            width: '100px'
+         },
+         formatter: (cellContent, row) => {
+            return (
+                <div className="text-ellipsis-250" style={{width:'250px'}}>
+                    <OverlayTrigger
+                        placement="top"
+                        overlay={
+                            <Tooltip id={`tooltip-top`}>
+                                {row.menu}
+                            </Tooltip>
+                        }
+                    >
+                        <span>{row.menu}</span>
+                    </OverlayTrigger>
+                </div>
+            );
+        }
     },
     {
         dataField: "filter",
-        text: "Filter",
+        text: "Subject",
+        style: {
+             
+            width: '10px'
+        },  headerStyle: {
+            // backgroundColor: 'green',
+            minWidth:'250px',
+            width: '100px'
+         },
+        
+        formatter: (cellContent, row) => {
+            return (
+                <div className="text-ellipsis-50" style={{width:'200px'}}>
+                    <OverlayTrigger
+                        placement="top"
+                        overlay={
+                            <Tooltip id={`tooltip-top`}>
+                                {row.filter}
+                            </Tooltip>
+                        }
+                    >
+                        <span>{row.filter}</span>
+                    </OverlayTrigger>
+                </div>
+            );
+        }
     },
     {
         text: "Action",
+        
         formatter: (cellContent, row) => {
             return (
                 <div>
