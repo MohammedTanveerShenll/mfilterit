@@ -14,7 +14,7 @@ const TicketingSystem = lazy(() => import("./views/app/ticketing-system"));
 const Tickets = lazy(() => import("./views/app/tickets"));
 const Users = lazy(() => import("./views/app/users"));
 const Verification = lazy(() => import("./views/app/verification"));
-const WebFraudDashboard = lazy(() => import("./views/app/web-fraud-dashboard"));
+const DigitalFootPrint = lazy(() => import("./views/app/digitalfootprint"));
 const ChangePassword = lazy(() => import("./views/app/changepassword"));
 const ErrorPage = lazy(() => import("./views/app/errors"));
 const PackageUser = lazy(() => import("./views/app/packageuser"));
@@ -36,12 +36,14 @@ export default function AppPages() {
                 <ContentRoute path="/verifications" component={Verifications} />
                 <ContentRoute path="/issues" component={Issues} />
                 <ContentRoute path="/packages" component={Packages} />
-                <ContentRoute path="/reports" component={Reports} />
+                
+        <ContentRoute path="/reports" component={Reports} /> 
                 <ContentRoute path="/ticketing-system" component={TicketingSystem} />
                 <ContentRoute path="/tickets" component={Tickets} />
                 <ContentRoute path="/users" component={Users} />
                 <ContentRoute path="/verification" component={Verification} />
-                <ContentRoute path="/web-fraud-dashboard" component={WebFraudDashboard} />
+           
+                <ContentRoute path="/digitalfootprint" component={DigitalFootPrint} />
                 <ContentRoute path="/changepassword" component={ChangePassword} />
                 <ContentRoute path="/package-user" component={PackageUser} />
                 <ContentRoute path="/usermanagement" component={UserManagement} />
