@@ -1,6 +1,6 @@
 import * as constant from "../constants/DashboardConstants";
 const initialState = {
-    totalincident_list: [],
+    incident_data: [],
     loading: false,
     error: null,
 };
@@ -11,14 +11,13 @@ const DashboardReducer = (state = initialState, { type, response }) => {
             return {
                 ...state,
                 loading: true,
-                data: response
             };
 
         case constant.TOTAL_INCIDENTS_SUCCESS:
             return {
                 ...state,
-                loading: true,
-                totalincident_list: response.data,
+                loading: false,
+                incident_data: response,
             };
 
         case constant.TOTAL_INCIDENTS_ERROR:

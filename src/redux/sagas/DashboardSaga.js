@@ -1,16 +1,19 @@
 import { takeLatest, put, call } from "redux-saga/effects";
 import * as constant from "../constants/DashboardConstants";
-import DashboardService from "../services/DashboardServices";
+import DashboardServices from "../services/DashboardServices";
 
-export function* viewTotalIncidentsSaga(payload) {
+export function* ViewTotalIncidentsSaga() {
+    console.log(DashboardServices.ViewTotalincidents);
     try {
-        const response = yield call(DashboardService.ViewTotalincidents, payload);
+        const response = yield call(DashboardServices.ViewTotalincidents);
+        console.log(response);
         yield put({ type: constant.TOTAL_INCIDENTS_SUCCESS, response })
     } catch (error) {
+        console.log(error);
         yield put({ type: constant.TOTAL_INCIDENTS_ERROR, error })
     }
 }
 
 export default function* DashboardSaga() {
-    yield takeLatest(constant.TOTAL_INCIDENTS, viewTotalIncidentsSaga);
+    yield takeLatest(constant.TOTAL_INCIDENTS, ViewTotalIncidentsSaga);
 }
