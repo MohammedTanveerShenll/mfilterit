@@ -460,7 +460,7 @@ export default function TicketsList() {
 
             <Modal show={viewshow} onHide={handleViewClose} size="lg">
                 <Modal.Header closeButton>
-                    <Modal.Title>Ticket Informationsss</Modal.Title>
+                    <Modal.Title>Ticket Information</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="row">
