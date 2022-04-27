@@ -13,11 +13,9 @@ import { InputGroup, FormControl, Form } from 'react-bootstrap';
 import { Checkbox } from "../../../../_partials/controls";
 import DatePicker from "react-datepicker";
 import Select from 'react-select';
-import { connect } from 'react-redux';
-import FetchTotalIncidents from "../../../../../../src/redux/actions/DashboardActions";
+import { connect, useSelector, useDispatch } from 'react-redux';
+import { FetchTotalIncidents } from "../../../../../../src/redux/actions/DashboardActions";
 import { useLocation } from 'react-router-dom'
-import Dashboard from "../../../../../app/views/app/dashboard";
-
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -75,21 +73,26 @@ export function QuickPanel() {
     setMyPackage(e.value, e.label)
     console.log(myPackage)
   }
-
+  const dispatch = useDispatch()
   useEffect(() => {
-    console.log(pathName)
-  })
+    dispatch(FetchTotalIncidents())
+  }, [])
+
+  const incident_data = useSelector(state => state.dashboard.incident_data)
+  const loading = useSelector(state => state.dashboard.loading)
+
+  console.log(incident_data);
 
   return (
     <>
       <div id="kt_quick_panel" className="offcanvas offcanvas-right pt-5 pb-10 pl-5 pr-5">
-        <div className="row pt-5 align-items-center">
+        {/* <div className="row pt-5 align-items-center">
           <div className="col-md-12">
             <label className={classes.orange_color}>Select Any Package</label>
             <Select options={packages} onChange={handleChange}
               menuColor='#f4874f' />
           </div>
-        </div>
+        </div> */}
         <div>
           <div>
             <h4 className={classes.orange_color}>Advance Search</h4>

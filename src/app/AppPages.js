@@ -27,22 +27,22 @@ export default function AppPages() {
         <Suspense fallback={<PageLoader />}>
             <Switch>
                 {
-                    <Redirect exact from="/" to="/dashboard" />
+                    <Redirect exact from="/" to="/incident-dashboard" />
                 }
                 {/* usermanagement */}
+                <ContentRoute path="/incident-dashboard" component={Dashboard} />
                 <ContentRoute path="/360-degree" component={ThreeSixtyDegree} />
-                <ContentRoute path="/dashboard" component={Dashboard} />
                 <ContentRoute path="/demo" component={DemoPages} />
                 <ContentRoute path="/verifications" component={Verifications} />
-                <ContentRoute path="/issues" component={Issues} />
+                <ContentRoute path="/issue" component={Issues} />
                 <ContentRoute path="/packages" component={Packages} />
-                
-        <ContentRoute path="/reports" component={Reports} /> 
+
+                <ContentRoute path="/report" component={Reports} />
                 <ContentRoute path="/ticketing-system" component={TicketingSystem} />
-                <ContentRoute path="/tickets" component={Tickets} />
+                <ContentRoute path="/issues" component={Tickets} />
                 <ContentRoute path="/users" component={Users} />
                 <ContentRoute path="/verification" component={Verification} />
-           
+
                 <ContentRoute path="/digitalfootprint" component={DigitalFootPrint} />
                 <ContentRoute path="/changepassword" component={ChangePassword} />
                 <ContentRoute path="/package-user" component={PackageUser} />
