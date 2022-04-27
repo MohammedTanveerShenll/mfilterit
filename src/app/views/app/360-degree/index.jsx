@@ -1,4 +1,4 @@
-import React  from 'react'
+import React from 'react'
 // import { , InputGroup } from "react-bootstrap";
 import {
     Card,
@@ -13,9 +13,9 @@ import BootstrapTable from "react-bootstrap-table-next";
 import paginationFactory from "react-bootstrap-table2-paginator";
 import SVG from "react-inlinesvg";
 import { toAbsoluteUrl } from "../../../../_metronic/_helpers/index";
-import { Form,InputGroup, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Formik,  Field } from "formik";
-import { useState ,useEffect } from "react";
+import { Form, InputGroup, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Formik, Field } from "formik";
+import { useState, useEffect } from "react";
 
 const customTotal = (from, to, size) => (
     <span className="react-bootstrap-table-pagination-total ml-3">
@@ -327,54 +327,68 @@ const ThreeSixtyDegree = () => {
 
     return (
         <div>
-            <p className='text-justify'>
+            <p className='text-justify bg-white text-dark p-4'>
                 The 360 Degree Search option enables user profile lookup across the public web, social media accounts, telegram, whatsapp groups, darkweb and other popular channels, using the attributes provided in the sample file here. For any concern, issues in accessing the functionality, please reach out to us on  brandinfringement.team@mfilterit.com <a href="mailto:brandinfringement.team@mfilterit.com">brandinfringement.team@mfilterit.com</a>
             </p>
-            <div className='row'>
-                <div className='col-lg-3 col-md-3 col-sm-3'>
+            <div className='row mt-5 '>
+                <div className='col-lg-3  col-md-3 col-sm-3 col-xs-12'>
                     <button className="btn btn-primary font-weight-bolder font-size-sm ">
                         Sample Download
                     </button>
                 </div>
-                <div className='col-lg-3 col-md-3 col-sm-3 d-flex justify-content-right float-right'>
-                    <Form.Group controlId="formFile" className="mt-2 pull-right ">
+                <div></div>
+                <div className='col-lg-3 col-md-3 col-sm-3 col-xs-12 d-flex justify-content-right float-right'>
+                    <Form.Group controlId="formFile" className="mt-0  bg-white text-dark  p-2">
                         <Form.Control type="file" />
                     </Form.Group>
                 </div>
-                <div className='col-lg-3 col-md-3 col-sm-3 d-flex justify-content-right float-right'>
-                    <Form.Group controlId="formFile" className="mt-2 pull-right ml-5">
+                <div className='col-lg-3 col-md-3 col-sm-3 col-xs-12 d-flex justify-content-right float-right '>
+                    <Form.Group controlId="formFile" className="mt-0  bg-white text-dark p-2">
                         <Form.Control type="file" />
                     </Form.Group>
                 </div>
-                <div className='col-lg-3 col-md-3 col-sm-3'>
+                <div className='col-lg-3 col-md-3 col-sm-3 col-xs-12'>
                     <button className="btn btn-primary font-weight-bolder font-size-sm float-right ">
                         Upload
                     </button>
+
                 </div>
+
+
             </div>
 
             <div className="card card-custom">
                 <Card>
-                    <CardHeader>
-                        <CardBody className="pt-0 pb-0">
-                            <div className="App">
-                                <BootstrapTable
-                                    bootstrap4
-                                    keyField="id"
-                                    data={data}
-                                    columns={columns}
-                                    pagination={paginationFactory(options)}
-                                    wrapperClasses="table-responsive"
-                                    classes="table table-head-custom table-vertical-center overflow-hidden"
-                                    bordered={false}
-                                    condensed
-                                    responsive
-                                />
-                            </div>
-                        </CardBody>
-                    </CardHeader>
+                    {/* <CardHeader title="Tickets list">
+                        <CardHeaderToolbar>
+                            <InputGroup className="mb-3">
+                                <input type="text" class="form-control" name="searchText" placeholder="Enter TicketID" />
+                                <button className="btn btn-primary font-weight-bolder font-size-sm mr-3">
+                                    Search
+                                </button>
+                            </InputGroup>
+                        </CardHeaderToolbar>
+                    </CardHeader> */}
+
+                    <CardBody className="pt-0 pb-0">
+                        <div className="App">
+                            <BootstrapTable
+                                bootstrap4
+                                keyField="id"
+                                data={data}
+                                columns={columns}
+                                pagination={paginationFactory(options)}
+                                wrapperClasses="table-responsive"
+                                classes="table table-head-custom table-vertical-center overflow-hidden"
+                                bordered={false}
+                                condensed
+                                responsive
+                            />
+                        </div>
+                    </CardBody>
                 </Card>
             </div>
+
             <Modal show={show} onHide={handleEditClose} size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title>Edit Ticket</Modal.Title>
