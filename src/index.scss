@@ -426,3 +426,22 @@ body {
     padding-top: 70px !important;
   }
 }
+
+.content-loader {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  background-color: #0000000a;
+  border-radius: 0.42rem;
+}
+
+.content-loader .loader-wrapper {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}

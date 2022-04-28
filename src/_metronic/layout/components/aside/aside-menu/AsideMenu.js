@@ -3,6 +3,7 @@ import { AsideMenuList } from "./AsideMenuList";
 import { useHtmlClassService } from "../../../_core/MetronicLayout";
 import Select from 'react-select'
 import { FetchPackagename, FetchMenulist } from "../../../../../redux/actions/CommonActions";
+import { FetchTotalIncidents, FetchIncidentVolumes, FetchActivecasesbychannel } from "../../../../../redux/actions/DashboardActions";
 import { useSelector, useDispatch } from 'react-redux';
 
 export function AsideMenu({ disableScroll }) {
@@ -18,10 +19,27 @@ export function AsideMenu({ disableScroll }) {
     };
   }, [uiService]);
 
+
+
   const handleOnchange = (e) => {
     localStorage.setItem("dpackage", e.value);
     setPackage(e.value);
+    const data = {
+      "package_name": e.value,
+      "fromDate": localStorage.getItem("startDate"),
+      "toDate": localStorage.getItem("endDate"),
+      "country": "all",
+      "category": "all",
+      "publisher": "all",
+      "channel": "all",
+      "brand": "all",
+      "status": "all",
+      "priority": "all"
+    }
     dispatch(FetchMenulist(e.value))
+    dispatch(FetchTotalIncidents(data))
+    dispatch(FetchIncidentVolumes(data))
+    dispatch(FetchActivecasesbychannel(data))
   }
 
   useEffect(() => {
@@ -48,7 +66,7 @@ export function AsideMenu({ disableScroll }) {
             <h4 className="menu-text">Dashboard</h4>
             <i className="menu-icon flaticon-more-v2"></i>
           </li>
-          <li>
+          <li className="pr-5 pl-5">
             <Select
               value={
                 packages.filter(option => option.value === dpackage)

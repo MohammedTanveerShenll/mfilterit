@@ -1,9 +1,22 @@
-import { TOTAL_INCIDENTS } from '../constants/DashboardConstants'
+import * as constant from '../constants/DashboardConstants';
 
 export const FetchTotalIncidents = (dashboarddata) => {
-    console.log("actions" + TOTAL_INCIDENTS);
     return {
-        type: TOTAL_INCIDENTS,
+        type: constant.TOTAL_INCIDENTS,
+        dashboarddata
+    }
+};
+
+export const FetchIncidentVolumes = (dashboarddata) => {
+    return {
+        type: constant.INCIDENT_VOLUMES,
+        dashboarddata
+    }
+};
+
+export const FetchActivecasesbychannel = (dashboarddata) => {
+    return {
+        type: constant.ACTIVECASE_CHANNEL,
         dashboarddata
     }
 };

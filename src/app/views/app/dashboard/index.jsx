@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
-import { ProgressBar } from 'react-bootstrap';
+import { ProgressBar, Spinner, Row, Col } from 'react-bootstrap';
 import FilterDrawer from '../shared-componets/filterdrawer';
-import { FetchTotalIncidents } from "../../../../redux/actions/DashboardActions";
+import { FetchTotalIncidents, FetchIncidentVolumes, FetchActivecasesbychannel } from "../../../../redux/actions/DashboardActions";
 import { useSelector, useDispatch } from 'react-redux';
 
 const Dashboard = () => {
@@ -15,83 +15,6 @@ const Dashboard = () => {
     const [status, setStatus] = useState("all");
 
 
-    const barchartData = {
-        series: [{
-            name: 'Net Profit',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-        }, {
-            name: 'Revenue',
-            data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-        }, {
-            name: 'Free Cash Flow',
-            data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-        }],
-        options: {
-            chart: {
-                type: 'bar',
-                height: 350
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '55%',
-                    endingShape: 'rounded'
-                },
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2,
-                colors: ['transparent']
-            },
-            xaxis: {
-                categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-            },
-            yaxis: {
-                title: {
-                    text: 'Incident Volumes'
-                }
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                y: {
-                    formatter: function (val) {
-                        return "$ " + val + " thousands"
-                    }
-                }
-            }
-        }
-    }
-    const donutchartData = {
-        series: [44, 55, 41, 17],
-        options: {
-            chart: {
-                width: 100,
-                type: 'donut'
-            },
-            labels: ["Organic Search", "Social media Platforms", "Q & A", "Youtube",],
-            states: {
-                hover: {
-                    filter: 'none'
-                }
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        width: 200
-                    },
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }]
-        },
-    }
     const columnchartData = {
         series: [{
             data: [400, 430, 448, 470, 540, 580, 690, 1100]
@@ -145,7 +68,7 @@ const Dashboard = () => {
 
 
     }
-    const [panel, setPanel] = useState(true);
+    const [panel, setPanel] = useState(false);
     const dispatch = useDispatch()
     // const [dashboarddata, setDashboarddata] = useState();
     const toggleDrawer = (e) => {
@@ -156,9 +79,9 @@ const Dashboard = () => {
     }
 
     const data = {
-        "package_name": "in.itcstore",
-        "fromDate": "2020-01-10",
-        "toDate": "2020-01-10",
+        "package_name": localStorage.getItem("dpackage"),
+        "fromDate": localStorage.getItem("startDate"),
+        "toDate": localStorage.getItem("endDate"),
         "country": countries,
         "category": categories,
         "publisher": publishers,
@@ -170,71 +93,187 @@ const Dashboard = () => {
 
     useEffect(() => {
         dispatch(FetchTotalIncidents(data))
+        dispatch(FetchIncidentVolumes(data))
+        dispatch(FetchActivecasesbychannel(data))
     }, [])
 
-    // const incident_data = useSelector(state => state.dashboard.incident_data)
-    // const loading = useSelector(state => state.dashboard.loading)
+    const incident_data = useSelector(state => state.dashboard.incident_data)
+    const incidentloading = useSelector(state => state.dashboard.incidentloading)
 
-    // console.log(incident_data);
+    const incidentvolume_data = useSelector(state => state.dashboard.incidentvolumne_data)
+    const incidentvolumeloading = useSelector(state => state.dashboard.incidentvolumneloading)
+
+    const activecasebychannel_data = useSelector(state => state.dashboard.activecases_data)
+    const activecaseloading = useSelector(state => state.dashboard.activecaseloading)
+
+    const barchartData = {
+        series: [{
+            name: 'Incident Volume',
+            data: []
+        },
+        ],
+        options: {
+            chart: {
+                type: 'bar',
+                height: 350,
+                toolbar: {
+                    show: false
+                },
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                },
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            xaxis: {
+                categories: [],
+            },
+            // yaxis: {
+            //     title: {
+            //         text: 'Incident Volumes'
+            //     }
+            // },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                y: {
+                    // formatter: function (val) {
+                    //     return "$ " + val + " thousands"
+                    // }
+                }
+            }
+        }
+    }
+
+    const donutchartData = {
+        series: [],
+        options: {
+            chart: {
+                width: 100,
+                type: 'donut'
+            },
+            labels: [],
+            states: {
+                hover: {
+                    filter: 'none'
+                }
+            },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: {
+                        width: 200
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }]
+        },
+    }
+
+    if (incidentvolume_data.length !== 0) {
+        incidentvolume_data && incidentvolume_data.map((incvoulume, i) => (
+            barchartData.series[0].data.push(incvoulume.count),
+            barchartData.options.xaxis.categories.push(incvoulume.inserted_date)
+        ))
+    }
+
+    if (activecasebychannel_data.length !== 0) {
+        activecasebychannel_data && activecasebychannel_data.map((activecases, i) => (
+            donutchartData.series.push(activecases.count),
+            donutchartData.options.labels.push(activecases.channel_name)
+        ))
+    }
+
     return (
         <>
             <div className="row">
-                <div className="col-md-5 card card-custom p-0">
+                {/* <div className="col-md-5 card card-custom p-0">
                     <div className=''>
-                        <div className="card-body p-0 position-relative overflow-hidden">
-                            <div
-                                className="card-rounded-bottom bg-danger"
-                                style={{ height: "auto" }}>
-                                <div class="card-header border-0 bg-danger py-5">
-                                    <h3 class="card-title font-weight-bolder text-white">Incidents</h3>
+                        <div className="card-body p-0 position-relative overflow-hidden" style={{ minHeight: "65vh" }}>
+                            {incidentloading === false ?
+                                <div>
+                                    <div
+                                        className="card-rounded-bottom bg-danger"
+                                        style={{ height: "auto" }}>
+                                        <div class="card-header border-0 bg-danger py-5">
+                                            <h3 class="card-title font-weight-bolder text-white">Incidents</h3>
+                                        </div>
+                                    </div>
+                                    <div className="card-spacer mt-n15">
+                                        <div className="row m-0">
+                                            <div className="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7">
+                                                <span className="text-warning font-weight-bold font-size-h6">
+                                                    Total Incidents
+                                                </span>
+                                                <h1 className="text-warning font-weight-bold font-size-h1 mt-5">
+                                                    {incident_data.total}
+                                                </h1>
+                                            </div>
+                                            <div className="col bg-light-primary px-6 py-8 rounded-xl mb-7">
+                                                <span className="text-primary font-weight-bold font-size-h6 mt-2">
+                                                    Active Cases
+                                                </span>
+                                                <h1 className="text-primary font-weight-bold font-size-h1 mt-5">
+                                                    {incident_data.active}
+                                                </h1>
+                                            </div>
+                                        </div>
+                                        <div className="row m-0">
+                                            <div className="col bg-light-danger px-6 py-8 rounded-xl mr-7">
+                                                <span className="text-danger font-weight-bold font-size-h6 mt-2">
+                                                    Resolved Cases
+                                                </span>
+                                                <h1 className="text-danger font-weight-bold font-size-h1 mt-5">
+                                                    {incident_data.resolved}
+                                                </h1>
+                                            </div>
+                                            <div className="col bg-light-success px-6 py-8 rounded-xl">
+                                                <span className="text-success font-weight-bold font-size-h6 mt-2">
+                                                    In Progress
+                                                </span>
+                                                <h1 className="text-success font-weight-bold font-size-h1 mt-5">
+                                                    {incident_data.progress}
+                                                </h1>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="card-spacer mt-n15">
-                                <div className="row m-0">
-                                    <div className="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7">
-                                        <span className="text-warning font-weight-bold font-size-h6">
-                                            Total Incidents
-                                        </span>
-                                        <h1 className="text-warning font-weight-bold font-size-h1 mt-5">
-                                            49
-                                        </h1>
-                                    </div>
-                                    <div className="col bg-light-primary px-6 py-8 rounded-xl mb-7">
-                                        <span className="text-primary font-weight-bold font-size-h6 mt-2">
-                                            Active Cases
-                                        </span>
-                                        <h1 className="text-primary font-weight-bold font-size-h1 mt-5">
-                                            11
-                                        </h1>
+                                :
+                                <div className="content-loader">
+                                    <div className="loader-wrapper">
+                                        <Spinner animation="border" variant="warning" />
                                     </div>
                                 </div>
-                                <div className="row m-0">
-                                    <div className="col bg-light-danger px-6 py-8 rounded-xl mr-7">
-                                        <span className="text-danger font-weight-bold font-size-h6 mt-2">
-                                            Resolved Cases
-                                        </span>
-                                        <h1 className="text-danger font-weight-bold font-size-h1 mt-5">
-                                            23
-                                        </h1>
-                                    </div>
-                                    <div className="col bg-light-success px-6 py-8 rounded-xl">
-                                        <span className="text-success font-weight-bold font-size-h6 mt-2">
-                                            In Progress
-                                        </span>
-                                        <h1 className="text-success font-weight-bold font-size-h1 mt-5">
-                                            14
-                                        </h1>
-                                    </div>
-                                </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>
-                <div className="col-md-7">
-                    <div className="card card-custom">
-                        <h5 className="text-center mt-5">Incident Volumes</h5>
-                        <Chart options={barchartData.options} series={barchartData.series} type="bar" />
-                    </div>
+                <div className="col-md-7 card card-custom p-0">
+                    {incidentvolumeloading === false ?
+                        <div className="card card-custom">
+                            <h5 className="text-center mt-5">Incident Volumes</h5>
+                            {incidentvolume_data.length === 0 ? "No Data" :
+                                <Chart options={barchartData.options} series={barchartData.series} type="bar" />
+                            }
+                        </div> :
+                        <div className="content-loader">
+                            <div className="loader-wrapper">
+                                <Spinner animation="border" variant="warning" />
+                            </div>
+                        </div>
+                    }
                 </div>
                 <div className="col-md-6 card card-custom">
                     <div className="">
@@ -248,12 +287,10 @@ const Dashboard = () => {
                         <Chart options={columnchartData1.options} series={columnchartData1.series} type="bar" />
                     </div>
                 </div>
-
                 <div className="col-md-12 card card-custom">
                     <h5 className="text-center mt-5">Top 10 Locations</h5>
                     <Chart options={columnchartData.options} series={columnchartData.series} type="bar" />
                 </div>
-
                 <div className="col-md-6 pl-0">
                     <div className="card card-custom">
                         <div class="card-header border-0">
@@ -294,7 +331,6 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </div>
-
                 <div className="col-md-6 card card-custom">
                     <div class="card-header border-0">
                         <h3 class="card-title font-weight-bolder text-dark">Publisher level Counts</h3>
@@ -341,8 +377,116 @@ const Dashboard = () => {
                         </div>
 
                     </div>
-                </div>
+                </div> */}
             </div>
+
+            <Row gutter={[8, 8]}>
+                <Col xs={12} sm={12} md={5} lg={5} xl={5}>
+                    <div className="card card-body p-0 position-relative overflow-hidden" style={{ minHeight: "65vh" }}>
+                        <div>
+                            <div
+                                className="card-rounded-bottom bg-danger"
+                                style={{ height: "auto" }}>
+                                <div class="card-header border-0 bg-danger py-5">
+                                    <h3 class="card-title font-weight-bolder text-white">Incidents</h3>
+                                </div>
+                            </div>
+                            <div className="p-5 mt-n15">
+                                <div className="row m-0">
+                                    <div className="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7">
+                                        <span className="text-warning font-weight-bold font-size-h6">
+                                            Total Incidents
+                                        </span>
+                                        {incidentloading === true ?
+                                            <p className="mt-5">
+                                                <Spinner animation="border" variant="warning" /> </p> :
+                                            <h1 className="text-warning font-weight-bold font-size-h1 mt-5">
+                                                {incident_data.total} </h1>
+                                        }
+                                    </div>
+                                    <div className="col bg-light-primary px-6 py-8 rounded-xl mb-7">
+                                        <span className="text-primary font-weight-bold font-size-h6 mt-2">
+                                            Active Cases
+                                        </span>
+                                        {incidentloading === true ?
+                                            <p className="mt-5">
+                                                <Spinner animation="border" variant="warning" /> </p> :
+                                            <h1 className="text-primary font-weight-bold font-size-h1 mt-5">
+                                                {incident_data.active}
+                                            </h1>
+                                        }
+                                    </div>
+                                </div>
+                                <div className="row m-0">
+                                    <div className="col bg-light-danger px-6 py-8 rounded-xl mr-7">
+                                        <span className="text-danger font-weight-bold font-size-h6 mt-2">
+                                            Resolved Cases
+                                        </span>
+                                        {incidentloading === true ?
+                                            <p className="mt-5">
+                                                <Spinner animation="border" variant="warning" /> </p> :
+                                            <h1 className="text-danger font-weight-bold font-size-h1 mt-5">
+                                                {incident_data.resolved}
+                                            </h1>
+                                        }
+                                    </div>
+                                    <div className="col bg-light-success px-6 py-8 rounded-xl">
+                                        <span className="text-success font-weight-bold font-size-h6 mt-2">
+                                            In Progress
+                                        </span>
+                                        {incidentloading === true ?
+                                            <p className="mt-5">
+                                                <Spinner animation="border" variant="warning" /> </p> :
+                                            <h1 className="text-success font-weight-bold font-size-h1 mt-5">
+                                                {incident_data.progress}
+                                            </h1>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Col>
+                <Col xs={12} sm={12} md={7} lg={7} xl={7} className="card card-custom">
+                    {incidentvolumeloading === false ?
+                        <div>
+                            <h5 className="text-center mt-5">Incident Volumes</h5>
+                            {incidentvolume_data.length === 0 ? "No Data" :
+                                <Chart options={barchartData.options} series={barchartData.series} type="bar" />
+                            }
+                        </div> :
+                        <div className="content-loader">
+                            <div className="loader-wrapper">
+                                <Spinner animation="border" variant="warning" />
+                            </div>
+                        </div>
+                    }
+                </Col>
+                <Col xs={12} sm={12} md={6} lg={6} xl={6} className="card">
+                    {activecaseloading === false ?
+                        <div>
+                            <h5 className="text-center mt-5">Active Cases By Channels</h5>
+                            {activecasebychannel_data.length === 0 ? "No Data" :
+                                <Chart options={donutchartData.options} series={donutchartData.series} type="donut" />
+                            }
+                        </div>
+                        :
+                        <div className="content-loader">
+                            <div className="loader-wrapper">
+                                <Spinner animation="border" variant="warning" />
+                            </div>
+                        </div>
+                    }
+                </Col>
+
+                {/* <Col xs={12} sm={12} md={6} lg={6} xl={6} className="card">
+                    <div>
+                        <h5 className="text-center mt-5">Sub Channels</h5>
+                        <Chart options={columnchartData1.options} series={columnchartData1.series} type="bar" />
+                    </div>
+                </Col> */}
+
+            </Row>
             <FilterDrawer panel={panel} toggleDrawer={toggleDrawer} handleSubmit={handleSubmit} />
         </>
     );
