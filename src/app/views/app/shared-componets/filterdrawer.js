@@ -18,6 +18,7 @@ import { Checkbox } from "../../../../_metronic/_partials/controls";
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { FetchFilterlist } from "../../../../redux/actions/CommonActions"
+import moment from 'moment';
 
 export default function FilterDrawer(props) {
     const packageName = localStorage.getItem('dpackage');
@@ -47,16 +48,25 @@ export default function FilterDrawer(props) {
         },
     });
 
-    const [startDate, setStartDate] = useState(new Date("2014/02/08"));
-    const [endDate, setEndDate] = useState(new Date("2014/02/10"));
+    const date = new Date();
+    const weekstartdate = date.setDate(date.getDate() - 6)
+    const [startDate, setStartDate] = useState(weekstartdate);
+    const [endDate, setEndDate] = useState(new Date());
     const classes = useStyles();
+    localStorage.setItem("startDate", moment(new Date(startDate)).format('YYYY-MM-DD'));
+    localStorage.setItem("endDate", moment(new Date(endDate)).format('YYYY-MM-DD'));
     const handleSearch = (formData) => {
         handleSubmit(formData);
+        console.log(localStorage.getItem("startDate"));
+        console.log(localStorage.getItem("endDate"));
     }
 
     useEffect(() => {
         dispatch(FetchFilterlist(packageName))
     }, [])
+
+    const filter_list = useSelector(state => state.common.filter_list)
+    // const loading = useSelector(state => state.dashboard.loading)
 
     return (
         <Drawer
@@ -95,252 +105,59 @@ export default function FilterDrawer(props) {
                                 </Col>
 
                                 <div className={classes.root}>
-                                    <ExpansionPanel>
-                                        <ExpansionPanelSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1c-content"
-                                            id="panel1c-header"
-                                        >
-                                            <div className={classes.column}>
-                                                <Typography
-                                                    className={clsx(classes.heading, classes.orange_color)}>
-                                                    <h6 className="mb-0" >Channels</h6>
-                                                </Typography>
-                                            </div>
-                                            <div className={classes.column}>
-                                                <Typography
-                                                    className={clsx(classes.secondaryHeading, classes.orange_color)}>
-                                                </Typography>
-                                            </div>
-                                            <div className={classes.column}>
-                                                <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
-                                            </div>
-                                        </ExpansionPanelSummary>
-                                        <Divider />
-                                        <ExpansionPanelActions>
-                                            <div className="row">
-                                                <InputGroup className="mb-3">
-                                                    <FormControl
-                                                        placeholder="Search"
-                                                        aria-label="Search"
-                                                        aria-describedby="basic-addon2"
-                                                    />
-                                                    <InputGroup.Append>
-                                                        <InputGroup.Text id="basic-addon2">
-                                                            <span>Search</span>
-                                                        </InputGroup.Text>
-                                                    </InputGroup.Append>
-                                                </InputGroup>
-                                            </div>
-                                        </ExpansionPanelActions>
-                                        <ExpansionPanelDetails className={classes.details}>
-                                            <Form.Group controlId="formBasicChecbox" className="checkbox-inner mb-0">
-                                                <Checkbox name="checked" children="Organic Search" />
-                                                <Checkbox name="checked" children="Youtube" />
-                                                <Checkbox name="checked" children="Q & A" />
-                                                <Checkbox name="checked" children="Social Media Platforms" />
-                                            </Form.Group>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
+                                    {filter_list.length === 0 ? "No data" :
 
-                                    <ExpansionPanel>
-                                        <ExpansionPanelSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1c-content"
-                                            id="panel1c-header"
-                                        >
-                                            <div className={classes.column}>
-                                                <Typography className={clsx(classes.heading, classes.orange_color)}
+                                        filter_list && filter_list.map((filtermenu, i) => (
+                                            <ExpansionPanel>
+                                                <ExpansionPanelSummary
+                                                    expandIcon={<ExpandMoreIcon />}
+                                                    aria-controls="panel1c-content"
+                                                    id="panel1c-header"
                                                 >
-                                                    <h6 className="mb-0">Categorires</h6>
-                                                </Typography>
-                                            </div>
-                                            <div className={classes.column}>
-                                                <Typography
-                                                    className={clsx(classes.secondaryHeading, classes.orange_color)}
-                                                ></Typography>
-                                            </div>
-                                            <div className={classes.column}>
-                                                <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
-                                            </div>
-                                        </ExpansionPanelSummary>
-                                        <Divider />
-                                        <ExpansionPanelActions>
-                                            <div className="row">
-                                                <InputGroup className="mb-3">
-                                                    <FormControl
-                                                        placeholder="Search"
-                                                        aria-label="Search"
-                                                        aria-describedby="basic-addon2"
-                                                    />
-                                                    <InputGroup.Append>
-                                                        <InputGroup.Text id="basic-addon2">
-                                                            <span>Search</span>
-                                                        </InputGroup.Text>
-                                                    </InputGroup.Append>
-                                                </InputGroup>
-                                            </div>
-                                        </ExpansionPanelActions>
-                                        <ExpansionPanelDetails className={classes.details}>
-                                            <Form.Group controlId="formBasicChecbox" className="checkbox-inner mb-0">
-                                                <Checkbox children="Fake Customer Care No" />
-                                                <Checkbox children="Fake Job Promotions" />
-                                                <Checkbox children="Fake Offers" />
-                                            </Form.Group>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
+                                                    <div className={classes.column}>
+                                                        <Typography
+                                                            className={clsx(classes.heading, classes.orange_color)}>
+                                                            <h6 className="mb-0" >{filtermenu}</h6>
+                                                        </Typography>
+                                                    </div>
+                                                    <div className={classes.column}>
+                                                        <Typography
+                                                            className={clsx(classes.secondaryHeading, classes.orange_color)}>
+                                                        </Typography>
+                                                    </div>
+                                                    <div className={classes.column}>
+                                                        <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
+                                                    </div>
+                                                </ExpansionPanelSummary>
+                                                <Divider />
+                                                <ExpansionPanelActions>
+                                                    <div className="row">
+                                                        <InputGroup className="mb-3">
+                                                            <FormControl
+                                                                placeholder="Search"
+                                                                aria-label="Search"
+                                                                aria-describedby="basic-addon2"
+                                                            />
+                                                            <InputGroup.Append>
+                                                                <InputGroup.Text id="basic-addon2">
+                                                                    <span>Search</span>
+                                                                </InputGroup.Text>
+                                                            </InputGroup.Append>
+                                                        </InputGroup>
+                                                    </div>
+                                                </ExpansionPanelActions>
+                                                <ExpansionPanelDetails className={classes.details}>
+                                                    <Form.Group controlId="formBasicChecbox" className="checkbox-inner mb-0">
+                                                        <Checkbox name="checked" children="Organic Search" />
+                                                        <Checkbox name="checked" children="Youtube" />
+                                                        <Checkbox name="checked" children="Q & A" />
+                                                        <Checkbox name="checked" children="Social Media Platforms" />
+                                                    </Form.Group>
+                                                </ExpansionPanelDetails>
+                                            </ExpansionPanel>
+                                        ))
 
-                                    <ExpansionPanel>
-                                        <ExpansionPanelSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1c-content"
-                                            id="panel1c-header"
-                                        >
-                                            <div className={classes.column}>
-                                                <Typography
-                                                    className={clsx(classes.heading, classes.orange_color)}
-                                                >
-                                                    <h6 className="mb-0">Publishers</h6>
-                                                </Typography>
-                                            </div>
-                                            <div className={classes.column}>
-                                                <Typography className={classes.secondaryHeading}></Typography>
-                                            </div>
-                                            <div className={classes.column}
-
-                                            >
-                                                <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
-                                            </div>
-                                        </ExpansionPanelSummary>
-                                        <Divider />
-                                        <ExpansionPanelActions>
-                                            <div className="row">
-                                                <InputGroup className="mb-3">
-                                                    <FormControl
-                                                        placeholder="Search"
-                                                        aria-label="Search"
-                                                        aria-describedby="basic-addon2"
-                                                    />
-                                                    <InputGroup.Append>
-                                                        <InputGroup.Text id="basic-addon2">
-                                                            <span>Search</span>
-                                                        </InputGroup.Text>
-                                                    </InputGroup.Append>
-                                                </InputGroup>
-                                            </div>
-                                        </ExpansionPanelActions>
-                                        <ExpansionPanelDetails className={classes.details}>
-                                            <Form.Group controlId="formBasicChecbox" className="checkbox-inner mb-0">
-                                                <Checkbox children="7074165033" />
-                                                <Checkbox children="7029054285" />
-                                                <Checkbox children="8649805464" />
-                                                <Checkbox children="7866058485" />
-                                                <Checkbox children="9835147819" />
-                                                <Checkbox children="8116334087" />
-                                                <Checkbox children="8144925793" />
-                                                <Checkbox children="9928344499" />
-                                                <Checkbox children="7665008611" />
-                                                <Checkbox children="7387060648" />
-                                                <Checkbox children="9694884347" />
-                                                <Checkbox children="8209553293" />
-                                                <Checkbox children="7420811295" />
-                                                <Checkbox children="9413035047" />
-                                                <Checkbox children="9837703667" />
-                                            </Form.Group>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-
-                                    <ExpansionPanel>
-                                        <ExpansionPanelSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1c-content"
-                                            id="panel1c-header"
-                                        >
-                                            <div
-                                                className={classes.column}>
-                                                <Typography
-                                                    className={clsx(classes.heading, classes.orange_color)}
-                                                >
-                                                    <h6 className="mb-0">Countries</h6>
-                                                </Typography>
-                                            </div>
-                                            <div className={classes.column}>
-                                                <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}></Typography>
-                                            </div>
-                                            <div className={classes.column}>
-                                                <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
-                                            </div>
-                                        </ExpansionPanelSummary>
-                                        <Divider />
-                                        <ExpansionPanelActions>
-                                            <div className="row">
-                                                <InputGroup className="mb-3">
-                                                    <FormControl
-                                                        placeholder="Search"
-                                                        aria-label="Search"
-                                                        aria-describedby="basic-addon2"
-                                                    />
-                                                    <InputGroup.Append>
-                                                        <InputGroup.Text id="basic-addon2">
-                                                            <span>Search</span>
-                                                        </InputGroup.Text>
-                                                    </InputGroup.Append>
-                                                </InputGroup>
-                                            </div>
-                                        </ExpansionPanelActions>
-                                        <ExpansionPanelDetails className={classes.details}>
-                                            <Form.Group controlId="formBasicChecbox" className="checkbox-inner mb-0">
-                                                <Checkbox children="India" />
-                                            </Form.Group>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-
-                                    <ExpansionPanel>
-                                        <ExpansionPanelSummary
-                                            expandIcon={<ExpandMoreIcon />}
-                                            aria-controls="panel1c-content"
-                                            id="panel1c-header"
-                                        >
-                                            <div className={classes.column}>
-                                                <Typography
-                                                    className={clsx(classes.heading, classes.orange_color)}
-                                                >
-                                                    <h6 className="mb-0">Brands</h6>
-                                                </Typography>
-                                            </div>
-                                            <div className={classes.column}>
-                                                <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}></Typography>
-                                            </div>
-                                            <div className={classes.column}>
-                                                <Typography
-                                                    className={clsx(classes.secondaryHeading, classes.orange_color)}
-                                                >0 Selected</Typography>
-                                            </div>
-                                        </ExpansionPanelSummary>
-                                        <Divider />
-                                        <ExpansionPanelActions>
-                                            <div className="row">
-                                                <InputGroup className="mb-3">
-                                                    <FormControl
-                                                        placeholder="Search"
-                                                        aria-label="Search"
-                                                        aria-describedby="basic-addon2"
-                                                    />
-                                                    <InputGroup.Append>
-                                                        <InputGroup.Text id="basic-addon2">
-                                                            <span>Search</span>
-                                                        </InputGroup.Text>
-                                                    </InputGroup.Append>
-                                                </InputGroup>
-                                            </div>
-                                        </ExpansionPanelActions>
-                                        <ExpansionPanelDetails className={classes.details}>
-                                            <Form.Group controlId="formBasicChecbox" className="checkbox-inner mb-0">
-                                                <Checkbox children="RBL Bank" />
-                                            </Form.Group>
-                                        </ExpansionPanelDetails>
-                                    </ExpansionPanel>
-
+                                    }
                                 </div>
 
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12}>

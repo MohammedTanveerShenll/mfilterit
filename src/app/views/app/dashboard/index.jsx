@@ -6,6 +6,15 @@ import { FetchTotalIncidents } from "../../../../redux/actions/DashboardActions"
 import { useSelector, useDispatch } from 'react-redux';
 
 const Dashboard = () => {
+    const [channels, setChannels] = useState("all");
+    const [categories, setCategories] = useState("all");
+    const [publishers, setPublishers] = useState("all");
+    const [countries, setCountries] = useState("all");
+    const [brands, setBrands] = useState("all");
+    const [priorities, setPriorities] = useState("all");
+    const [status, setStatus] = useState("all");
+
+
     const barchartData = {
         series: [{
             name: 'Net Profit',
@@ -146,8 +155,21 @@ const Dashboard = () => {
         // setDashboarddata(data)
     }
 
+    const data = {
+        "package_name": "in.itcstore",
+        "fromDate": "2020-01-10",
+        "toDate": "2020-01-10",
+        "country": countries,
+        "category": categories,
+        "publisher": publishers,
+        "channel": channels,
+        "brand": brands,
+        "status": status,
+        "priority": priorities
+    }
+
     useEffect(() => {
-        dispatch(FetchTotalIncidents())
+        dispatch(FetchTotalIncidents(data))
     }, [])
 
     // const incident_data = useSelector(state => state.dashboard.incident_data)

@@ -3,10 +3,8 @@ import * as constant from "../constants/DashboardConstants";
 import DashboardServices from "../services/DashboardServices";
 
 export function* ViewTotalIncidentsSaga(payload) {
-    console.log(DashboardServices.ViewTotalincidents);
     try {
-        const response = yield call(DashboardServices.ViewTotalincidents, payload);
-        console.log(response);
+        const response = yield call(DashboardServices.ViewTotalincidents, payload.dashboarddata);
         yield put({ type: constant.TOTAL_INCIDENTS_SUCCESS, response })
     } catch (error) {
         console.log(error);

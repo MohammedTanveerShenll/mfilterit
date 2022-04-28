@@ -35,7 +35,7 @@ const CommonReducer = (state = initialState, { type, response }) => {
             return {
                 ...state,
                 loading: false,
-                filter_list: response,
+                filter_list: response.filter,
             }
 
         case constant.PACKAGENAME_INIT_ERROR:
