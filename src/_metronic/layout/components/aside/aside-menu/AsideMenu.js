@@ -3,7 +3,11 @@ import { AsideMenuList } from "./AsideMenuList";
 import { useHtmlClassService } from "../../../_core/MetronicLayout";
 import Select from 'react-select'
 import { FetchPackagename, FetchMenulist } from "../../../../../redux/actions/CommonActions";
-import { FetchTotalIncidents, FetchIncidentVolumes, FetchActivecasesbychannel } from "../../../../../redux/actions/DashboardActions";
+import {
+  FetchTotalIncidents, FetchIncidentVolumes, FetchActivecasesbychannel, FetchSubchannel,
+  FetchToptenLocation, FetchCategorlevelcount, FetchPublisherlevelcount
+}
+  from "../../../../../redux/actions/DashboardActions";
 import { useSelector, useDispatch } from 'react-redux';
 
 export function AsideMenu({ disableScroll }) {
@@ -40,6 +44,10 @@ export function AsideMenu({ disableScroll }) {
     dispatch(FetchTotalIncidents(data))
     dispatch(FetchIncidentVolumes(data))
     dispatch(FetchActivecasesbychannel(data))
+    dispatch(FetchSubchannel(data))
+    dispatch(FetchToptenLocation(data))
+    dispatch(FetchCategorlevelcount(data))
+    dispatch(FetchPublisherlevelcount(data))
   }
 
   useEffect(() => {

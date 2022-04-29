@@ -1,8 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import { ProgressBar, Spinner, Row, Col } from 'react-bootstrap';
 import FilterDrawer from '../shared-componets/filterdrawer';
-import { FetchTotalIncidents, FetchIncidentVolumes, FetchActivecasesbychannel } from "../../../../redux/actions/DashboardActions";
+import {
+    FetchTotalIncidents, FetchIncidentVolumes, FetchActivecasesbychannel, FetchSubchannel, FetchToptenLocation,
+    FetchCategorlevelcount, FetchPublisherlevelcount
+} from "../../../../redux/actions/DashboardActions";
 import { useSelector, useDispatch } from 'react-redux';
 
 const Dashboard = () => {
@@ -14,60 +18,6 @@ const Dashboard = () => {
     const [priorities, setPriorities] = useState("all");
     const [status, setStatus] = useState("all");
 
-
-    const columnchartData = {
-        series: [{
-            data: [400, 430, 448, 470, 540, 580, 690, 1100]
-        }],
-        options: {
-            chart: {
-                type: 'bar',
-                height: 350
-            },
-            plotOptions: {
-                bar: {
-                    borderRadius: 4,
-                    horizontal: true,
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            xaxis: {
-                categories: ['South Korea', 'Canada', 'United Kingdom', 'Netherlands', 'Italy', 'France', 'Japan',
-                    'United States'
-                ],
-            }
-        },
-
-
-    }
-    const columnchartData1 = {
-        series: [{
-            data: [400, 430, 448, 470, 540]
-        }],
-        options: {
-            chart: {
-                type: 'bar',
-                height: 350
-            },
-            plotOptions: {
-                bar: {
-                    borderRadius: 4,
-                    horizontal: true,
-                    color: '#FFFFFF',
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            xaxis: {
-                categories: ['Maps', 'Facebook', 'Youtube', 'Pintrest', 'Linkedin'],
-            }
-        },
-
-
-    }
     const [panel, setPanel] = useState(false);
     const dispatch = useDispatch()
     // const [dashboarddata, setDashboarddata] = useState();
@@ -95,6 +45,10 @@ const Dashboard = () => {
         dispatch(FetchTotalIncidents(data))
         dispatch(FetchIncidentVolumes(data))
         dispatch(FetchActivecasesbychannel(data))
+        dispatch(FetchSubchannel(data))
+        dispatch(FetchToptenLocation(data))
+        dispatch(FetchCategorlevelcount(data))
+        dispatch(FetchPublisherlevelcount(data))
     }, [])
 
     const incident_data = useSelector(state => state.dashboard.incident_data)
@@ -105,6 +59,18 @@ const Dashboard = () => {
 
     const activecasebychannel_data = useSelector(state => state.dashboard.activecases_data)
     const activecaseloading = useSelector(state => state.dashboard.activecaseloading)
+
+    const subchannel_data = useSelector(state => state.dashboard.subchannel_data)
+    const subchannelloading = useSelector(state => state.dashboard.subchannelloading)
+
+    const toptenlocation_data = useSelector(state => state.dashboard.toptenlocation_data)
+    const toptenlocationloading = useSelector(state => state.dashboard.toptenlocation_loading)
+
+    const categorylevelcount_data = useSelector(state => state.dashboard.categorylevelcount_data)
+    const categorylevelcountloading = useSelector(state => state.dashboard.categorylevelcount_loading)
+
+    const publisherlevelcount_data = useSelector(state => state.dashboard.publisherlevelcount_data)
+    const publisherlevelcountloading = useSelector(state => state.dashboard.publisherlevelcount_loading)
 
     const barchartData = {
         series: [{
@@ -182,6 +148,65 @@ const Dashboard = () => {
         },
     }
 
+    const subchannelChart = {
+        series: [{
+            name: "Sub Channels",
+            data: []
+        }],
+        options: {
+            chart: {
+                type: 'bar',
+                height: 350,
+                toolbar: {
+                    show: false
+                },
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: 4,
+                    horizontal: true,
+                    color: '#FFFFFF',
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: [],
+            }
+        },
+    }
+
+    const toptenLocationChart = {
+        series: [{
+            name: "Top10 Location",
+            data: []
+        }],
+        options: {
+            chart: {
+                type: 'bar',
+                height: 350,
+                toolbar: {
+                    show: false
+                },
+            },
+            plotOptions: {
+                bar: {
+                    borderRadius: 4,
+                    horizontal: true,
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            xaxis: {
+                categories: [],
+            }
+        },
+
+
+    }
+
     if (incidentvolume_data.length !== 0) {
         incidentvolume_data && incidentvolume_data.map((incvoulume, i) => (
             barchartData.series[0].data.push(incvoulume.count),
@@ -193,6 +218,20 @@ const Dashboard = () => {
         activecasebychannel_data && activecasebychannel_data.map((activecases, i) => (
             donutchartData.series.push(activecases.count),
             donutchartData.options.labels.push(activecases.channel_name)
+        ))
+    }
+
+    if (subchannel_data.length !== 0) {
+        subchannel_data && subchannel_data.map((subchannel, i) => (
+            subchannelChart.series[0].data.push(subchannel.count),
+            subchannelChart.options.xaxis.categories.push(subchannel.sub_channel_name)
+        ))
+    }
+
+    if (toptenlocation_data.length !== 0) {
+        toptenlocation_data && toptenlocation_data.map((toptenlocation, i) => (
+            toptenLocationChart.series[0].data.push(toptenlocation.count),
+            toptenLocationChart.options.xaxis.categories.push(toptenlocation.location)
         ))
     }
 
@@ -284,12 +323,12 @@ const Dashboard = () => {
                 <div className="col-md-6">
                     <div className="card card-custom">
                         <h5 className="text-center mt-5">Sub Channels</h5>
-                        <Chart options={columnchartData1.options} series={columnchartData1.series} type="bar" />
+                        <Chart options={subchannelChart.options} series={subchannelChart.series} type="bar" />
                     </div>
                 </div>
                 <div className="col-md-12 card card-custom">
                     <h5 className="text-center mt-5">Top 10 Locations</h5>
-                    <Chart options={columnchartData.options} series={columnchartData.series} type="bar" />
+                    <Chart options={toptenLocationChart.options} series={toptenLocationChart.series} type="bar" />
                 </div>
                 <div className="col-md-6 pl-0">
                     <div className="card card-custom">
@@ -447,10 +486,10 @@ const Dashboard = () => {
                         </div>
                     </div>
                 </Col>
-                <Col xs={12} sm={12} md={7} lg={7} xl={7} className="card card-custom">
+                <Col xs={12} sm={12} md={7} lg={7} xl={7} className="card">
+                    <h5 className="text-center mt-5">Incident Volumes</h5>
                     {incidentvolumeloading === false ?
                         <div>
-                            <h5 className="text-center mt-5">Incident Volumes</h5>
                             {incidentvolume_data.length === 0 ? "No Data" :
                                 <Chart options={barchartData.options} series={barchartData.series} type="bar" />
                             }
@@ -463,9 +502,9 @@ const Dashboard = () => {
                     }
                 </Col>
                 <Col xs={12} sm={12} md={6} lg={6} xl={6} className="card">
+                    <h5 className="text-center mt-5">Active Cases By Channels</h5>
                     {activecaseloading === false ?
                         <div>
-                            <h5 className="text-center mt-5">Active Cases By Channels</h5>
                             {activecasebychannel_data.length === 0 ? "No Data" :
                                 <Chart options={donutchartData.options} series={donutchartData.series} type="donut" />
                             }
@@ -478,13 +517,113 @@ const Dashboard = () => {
                         </div>
                     }
                 </Col>
+                <Col xs={12} sm={12} md={6} lg={6} xl={6} className="card">
+                    <h5 className="text-center mt-5">Sub Channels</h5>
+                    {subchannelloading === false ?
+                        <div>
+                            {subchannel_data.length === 0 ? "No Data" :
+                                <Chart options={subchannelChart.options} series={subchannelChart.series} type="bar" />
+                            }
+                        </div> :
+                        <div className="content-loader">
+                            <div className="loader-wrapper">
+                                <Spinner animation="border" variant="warning" />
+                            </div>
+                        </div>
+                    }
+                </Col>
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} className="card">
+                    <h5 className="text-center mt-5">Top 10 Locations</h5>
+                    {toptenlocationloading === false ?
+                        <div>
+                            {toptenlocation_data.length === 0 ? "No Data" :
+                                <Chart options={toptenLocationChart.options} series={toptenLocationChart.series} type="bar" />
+                            }
+                        </div> :
+                        <div className="content-loader">
+                            <div className="loader-wrapper">
+                                <Spinner animation="border" variant="warning" />
+                            </div>
+                        </div>
+                    }
+                </Col>
 
-                {/* <Col xs={12} sm={12} md={6} lg={6} xl={6} className="card">
+                <Col xs={12} sm={12} md={6} lg={6} xl={6} className="card pt-5 pr-5 pl-5">
                     <div>
-                        <h5 className="text-center mt-5">Sub Channels</h5>
-                        <Chart options={columnchartData1.options} series={columnchartData1.series} type="bar" />
+                        <div class="card-header border-0 p-0">
+                            <Row>
+                                <Col xs={7} sm={7} md={7} lg={7} xl={7}>
+                                    <h3 class="card-title font-weight-bolder text-dark">Category level Counts</h3>
+                                </Col>
+                                <Col>
+                                    <div class="d-flex flex-column text-right">
+                                        <span class="text-dark-75 font-weight-bolder font-size-h4">{categorylevelcount_data.total_active_cases}</span>
+                                        <span class="text-muted font-size-sm font-weight-bolder">Total Active Cases</span>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
+                        {categorylevelcountloading === false ?
+                            <div class="card-body p-0 card-scroll mb-5">
+                                {categorylevelcount_data.result.length === 0 ? "No Data" :
+                                    categorylevelcount_data && categorylevelcount_data.result.map((category, i) => (
+                                        <div class="mb-5" key={i}>
+                                            <h6 class="card-title font-weight-bolderfont-size-h6 mb-2 d-block">
+                                                {category.category}</h6>
+                                            <div class="font-weight-bold text-muted font-size-sm">
+                                                <span class="text-dark-75 font-size-h2 font-weight-bolder mr-2">
+                                                    {category.active_cases} -</span>Active Cases</div>
+                                            <ProgressBar now={category.active_cases} variant="warning" />
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                            :
+                            <div className="content-loader">
+                                <div className="loader-wrapper">
+                                    <Spinner animation="border" variant="warning" />
+                                </div>
+                            </div>
+                        }
                     </div>
-                </Col> */}
+                </Col>
+                <Col xs={12} sm={12} md={6} lg={6} xl={6} className="card pt-5 pr-5 pl-5">
+                    <div class="card-header border-0 p-0">
+                        <Row>
+                            <Col xs={7} sm={7} md={7} lg={7} xl={7}>
+                                <h3 class="card-title font-weight-bolder text-dark">Publisher level Counts</h3>
+                            </Col>
+                            <Col>
+                                <div class="d-flex flex-column text-right">
+                                    <span class="text-dark-75 font-weight-bolder font-size-h4">{publisherlevelcount_data.total_active_cases}</span>
+                                    <span class="text-muted font-size-sm font-weight-bolder">Total Active Cases</span>
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
+                    {publisherlevelcountloading === false ?
+                        <div class="card-body p-0 card-scroll mb-5">
+                            {publisherlevelcount_data.result.length === 0 ? "No Data" :
+                                publisherlevelcount_data && publisherlevelcount_data.result.map((publisher, i) => (
+                                    <div class="mb-5" key={i}>
+                                        <h6 class="card-title font-weight-bolderfont-size-h6 mb-2 d-block">
+                                            {publisher.publisher}</h6>
+                                        <div class="font-weight-bold text-muted font-size-sm">
+                                            <span class="text-dark-75 font-size-h2 font-weight-bolder mr-2">
+                                                {publisher.active_cases} -</span>Active Cases</div>
+                                        <ProgressBar now={publisher.active_cases} variant="warning" />
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        :
+                        <div className="content-loader">
+                            <div className="loader-wrapper">
+                                <Spinner animation="border" variant="warning" />
+                            </div>
+                        </div>
+                    }
+                </Col>
 
             </Row>
             <FilterDrawer panel={panel} toggleDrawer={toggleDrawer} handleSubmit={handleSubmit} />

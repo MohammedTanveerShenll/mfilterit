@@ -11,6 +11,22 @@ const initialState = {
     activecases_data: [],
     activecaseloading: true,
     activecases_error: null,
+
+    subchannel_data: [],
+    subchannelloading: true,
+    subchannel_error: null,
+
+    toptenlocation_data: [],
+    toptenlocation_loading: true,
+    toptenlocation_error: null,
+
+    categorylevelcount_data: [],
+    categorylevelcount_loading: true,
+    categorylevelcount_error: null,
+
+    publisherlevelcount_data: [],
+    publisherlevelcount_loading: true,
+    publisherlevelcount_error: null,
 };
 
 const DashboardReducer = (state = initialState, { type, response }) => {
@@ -31,6 +47,30 @@ const DashboardReducer = (state = initialState, { type, response }) => {
             return {
                 ...state,
                 activecaseloading: true,
+            };
+
+        case constant.SUBCHANNEL_INIT:
+            return {
+                ...state,
+                subchannelloading: true,
+            };
+
+        case constant.TOPTEN_LOCATION_INIT:
+            return {
+                ...state,
+                toptenlocation_loading: true,
+            };
+
+        case constant.CATEGORY_LEVEL_COUNT:
+            return {
+                ...state,
+                categorylevelcount_loading: true,
+            };
+
+        case constant.PUBLISHER_LEVEL_COUNT:
+            return {
+                ...state,
+                publisherlevelcount_loading: true,
             };
 
         // success
@@ -56,6 +96,34 @@ const DashboardReducer = (state = initialState, { type, response }) => {
                 activecases_data: response.data,
             };
 
+        case constant.SUBCHANNEL_SUCCESS:
+            return {
+                ...state,
+                subchannelloading: false,
+                subchannel_data: response.data,
+            };
+
+        case constant.TOPTEN_LOCATION_SUCCESS:
+            return {
+                ...state,
+                toptenlocation_loading: false,
+                toptenlocation_data: response.data,
+            };
+
+        case constant.CATEGORY_LEVEL_COUNT_SUCCESS:
+            return {
+                ...state,
+                categorylevelcount_loading: false,
+                categorylevelcount_data: response.data,
+            };
+
+        case constant.PUBLISHER_LEVEL_COUNT_SUCCESS:
+            return {
+                ...state,
+                publisherlevelcount_loading: false,
+                publisherlevelcount_data: response.data,
+            };
+
         // error
 
         case constant.TOTAL_INCIDENTS_ERROR:
@@ -77,6 +145,34 @@ const DashboardReducer = (state = initialState, { type, response }) => {
                 ...state,
                 activecaseloading: false,
                 activecases_error: response,
+            };
+
+        case constant.SUBCHANNEL_ERROR:
+            return {
+                ...state,
+                subchannelloading: false,
+                subchannel_error: response,
+            };
+
+        case constant.TOPTEN_LOCATION_ERROR:
+            return {
+                ...state,
+                toptenlocation_loading: false,
+                toptenlocation_error: response,
+            };
+
+        case constant.CATEGORY_LEVEL_COUNT_ERROR:
+            return {
+                ...state,
+                categorylevelcount_loading: false,
+                categorylevelcount_error: response,
+            };
+
+        case constant.PUBLISHER_LEVEL_COUNT_ERROR:
+            return {
+                ...state,
+                publisherlevelcount_loading: false,
+                publisherlevelcount_error: response,
             };
 
         default:

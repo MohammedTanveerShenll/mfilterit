@@ -21,3 +21,32 @@ export const FetchActivecasesbychannel = (dashboarddata) => {
     }
 };
 
+export const FetchSubchannel = (dashboarddata) => {
+    return {
+        type: constant.SUBCHANNEL_INIT,
+        dashboarddata
+    }
+};
+
+export const FetchToptenLocation = (dashboarddata) => {
+    return {
+        type: constant.TOPTEN_LOCATION_INIT,
+        dashboarddata
+    }
+};
+
+export const FetchCategorlevelcount = (dashboarddata) => {
+    return {
+        type: constant.CATEGORY_LEVEL_COUNT,
+        dashboarddata
+    }
+};
+
+export const FetchPublisherlevelcount = (dashboarddata) => {
+    return {
+        type: constant.PUBLISHER_LEVEL_COUNT,
+        dashboarddata
+    }
+};
+
+
