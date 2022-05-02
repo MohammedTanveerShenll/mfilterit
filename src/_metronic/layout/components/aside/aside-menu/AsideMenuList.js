@@ -45,6 +45,188 @@ export function AsideMenuList({ layoutProps }) {
                         </li>
                     )))
                 }
+                <li
+                    className={`menu-item menu-item-submenu ${getMenuItemActive("/error", true)}`}
+                    aria-haspopup="true"
+                    data-menu-toggle="hover">
+                    <NavLink className="menu-link menu-toggle" to="/error">
+                        <span className="svg-icon menu-icon">
+                            <SVG src={toAbsoluteUrl("/media/svg/icons/Home/Library.svg")} />
+                        </span>
+                        <span className="menu-text">Verifications</span>
+                        <i className="menu-arrow" />
+                    </NavLink>
+                    <div className="menu-submenu">
+                        <i className="menu-arrow" />
+                        <ul className="menu-subnav">
+                            <li className="menu-item  menu-item-parent" aria-haspopup="true">
+                                <span className="menu-link">
+                                    <span className="menu-text">Verifications</span>
+                                </span>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("address")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/address">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Address</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("bankverifications")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/bank-verification">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Bank Verification</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("basicepfo")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/basic-epfo">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Basic EPFO Search</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("companysearch")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/company-search">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Company Search</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("courtcase")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/court-case">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Court Case</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("ipdetail")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/ip-detail">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">IP Details</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("iplocation")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/ip-location">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">IP Location</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("pantogst")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/pan-to-gst">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">PAN to GST</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("verifyaadhar")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/verify-aadhar">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Verify Aadhar</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("verifydomain")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/verify-domain">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Verify Domain</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("verifyemail")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/verify-email">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Verify Email</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("verifypan")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/verify-pan">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Verify PAN</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("verifypassport")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/verify-passport">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Verify Passport</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("verifyvoteid")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/verify-voteid">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Verify Voter ID</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("verifyvechiclerc")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/verify-vehicle-rc">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Verify vehicle Rc</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("worldwatch")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/world-watch-risk-screening">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">World Watch Risk Screening</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("epfoemployee")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/epfo-employee">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">EPFO Emplyoee</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("verifydrivinglicense")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/verify-driving-license">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Verify Driving License</span>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={`menu-item ${getMenuItemActive("bulkbankverification")}`}
+                                aria-haspopup="true">
+                                <NavLink className="menu-link" to="/verifications/bulk-bank-verification">
+                                    <i className="menu-bullet menu-bullet-dot"><span /></i>
+                                    <span className="menu-text">Bulk Bank Verification</span>
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                {/* <li className={`menu-item ${getMenuItemActive("/users", false)}`} aria-haspopup="true">
+                    <NavLink className="menu-link" to="/users">
+                        <span className="svg-icon menu-icon">
+                            <SVG src={toAbsoluteUrl("/media/svg/icons/Communication/Adress-book2.svg")} />
+                        </span>
+                        <span className="menu-text">Add User</span>
+                    </NavLink>
+                </li> */}
 
                 {/* 
                 
@@ -134,188 +316,7 @@ export function AsideMenuList({ layoutProps }) {
                 </NavLink>
             </li>
 
-            <li
-                className={`menu-item menu-item-submenu ${getMenuItemActive("/error", true)}`}
-                aria-haspopup="true"
-                data-menu-toggle="hover">
-                <NavLink className="menu-link menu-toggle" to="/error">
-                    <span className="svg-icon menu-icon">
-                        <SVG src={toAbsoluteUrl("/media/svg/icons/Home/Library.svg")} />
-                    </span>
-                    <span className="menu-text">Verifications</span>
-                    <i className="menu-arrow" />
-                </NavLink>
-                <div className="menu-submenu">
-                    <i className="menu-arrow" />
-                    <ul className="menu-subnav">
-                        <li className="menu-item  menu-item-parent" aria-haspopup="true">
-                            <span className="menu-link">
-                                <span className="menu-text">Verifications</span>
-                            </span>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("verifications")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/verifications/bulk-verification">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Bulk Verification</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("world-watch-screening")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/verifications/world-watch-screening">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">World Watch Streaming</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("vehicle-detail")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/verifications/vehicle-detail">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Vehicle Detail</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("policy")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/verifications/policy">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Policy</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("phone")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/verifications/phone">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Phone</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("passport-check")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/verifications/passport-check">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Passport Check</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("pan-gst-check")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/verifications/pan-gst-check">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Pan Gst Check</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("pan-card-check")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/verifications/pan-card-check">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Pan Card Check</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("number-data-check")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/verifications/number-data-check">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Number Data Check</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("location")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/verifications/location">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Location</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("email")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/verifications/email">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Email</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("Verifications")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/errors">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Driving License</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("Verifications")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/errors">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Domain Detail</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("Verifications")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/errors">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Data Check</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("Verifications")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/errors">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Court Cases</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("Verifications")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/errors">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Company Search</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("Verifications")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/errors">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Black List</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("Verifications")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/errors">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Black List Email</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("Verifications")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/errors">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Bank Verification</span>
-                            </NavLink>
-                        </li>
-                        <li
-                            className={`menu-item ${getMenuItemActive("Verifications")}`}
-                            aria-haspopup="true">
-                            <NavLink className="menu-link" to="/errors">
-                                <i className="menu-bullet menu-bullet-dot"><span /></i>
-                                <span className="menu-text">Address</span>
-                            </NavLink>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+           
 
             <li className={`menu-item ${getMenuItemActive("/web-fraud-dashboard", false)}`} aria-haspopup="true">
                 <NavLink className="menu-link" to="/web-fraud-dashboard">

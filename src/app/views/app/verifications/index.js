@@ -4,20 +4,26 @@ import { Switch, Route, Redirect } from "react-router-dom";
 const Verifications = ({ match }) => (
     <Suspense>
         <Switch>
-            {<Redirect exact={true} from="/verifications" to="/verifications/bulk-verification" />}
-            <Route path={`${match.url}/edit`} component={lazy(() => import(`./edit`))} />
-            <Route path={`${match.url}/bulk-verification`} component={lazy(() => import(`./bulkverfication`))} />
-            <Route path={`${match.url}/world-watch-screening`} component={lazy(() => import(`./worldwatchstreaming`))} />
-            <Route path={`${match.url}/vehicle-detail`} component={lazy(() => import(`./vechicledetails`))} />
-            <Route path={`${match.url}/policy`} component={lazy(() => import(`./policy`))} />
-            <Route path={`${match.url}/phone`} component={lazy(() => import(`./phone`))} />
-            <Route path={`${match.url}/passport-check`} component={lazy(() => import(`./passportcheck`))} />
-            <Route path={`${match.url}/pan-gst-check`} component={lazy(() => import(`./pangstcheck`))} />
-            <Route path={`${match.url}/pan-card-check`} component={lazy(() => import(`./pancardcheck`))} />
-            <Route path={`${match.url}/number-data-check`} component={lazy(() => import(`./numberdatacheck`))} />
-            <Route path={`${match.url}/location`} component={lazy(() => import(`./location`))} />
-            <Route path={`${match.url}/email`} component={lazy(() => import(`./email`))} />
-
+            {<Redirect exact={true} from="/verifications" to="/verifications/address" />}
+            <Route path={`${match.url}/address`} component={lazy(() => import(`./address`))} />
+            <Route path={`${match.url}/bank-verification`} component={lazy(() => import(`./bankverfication`))} />
+            <Route path={`${match.url}/basic-epfo`} component={lazy(() => import(`./basicepfo`))} />
+            <Route path={`${match.url}/company-search`} component={lazy(() => import(`./companysearch`))} />
+            <Route path={`${match.url}/court-case`} component={lazy(() => import(`./courtcase`))} />
+            <Route path={`${match.url}/ip-detail`} component={lazy(() => import(`./ipdetail`))} />
+            <Route path={`${match.url}/ip-location`} component={lazy(() => import(`./iplocation`))} />
+            <Route path={`${match.url}/pan-to-gst`} component={lazy(() => import(`./pantogst`))} />
+            <Route path={`${match.url}/verify-aadhar`} component={lazy(() => import(`./verifyaadthar`))} />
+            <Route path={`${match.url}/verify-domain`} component={lazy(() => import(`./verifydomain`))} />
+            <Route path={`${match.url}/verify-email`} component={lazy(() => import(`./verifyemail`))} />
+            <Route path={`${match.url}/verify-pan`} component={lazy(() => import(`./verifypan`))} />
+            <Route path={`${match.url}/verify-passport`} component={lazy(() => import(`./verifypassport`))} />
+            <Route path={`${match.url}/verify-voteid`} component={lazy(() => import(`./verifyvoteid`))} />
+            <Route path={`${match.url}/verify-vehicle-rc`} component={lazy(() => import(`./verifyvechiclerc`))} />
+            <Route path={`${match.url}/world-watch-risk-screening`} component={lazy(() => import(`./worldwatch`))} />
+            <Route path={`${match.url}/epfo-employee`} component={lazy(() => import(`./epfoemployee`))} />
+            <Route path={`${match.url}/verify-driving-license`} component={lazy(() => import(`./verifydrivinglicense`))} />
+            <Route path={`${match.url}/bulk-bank-verification`} component={lazy(() => import(`./bulkbankverification`))} />
         </Switch>
     </Suspense>
 );
