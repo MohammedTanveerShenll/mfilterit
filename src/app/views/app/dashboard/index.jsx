@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-sequences */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
@@ -247,6 +249,7 @@ const Dashboard = () => {
 
     if (toptenlocation_data.length !== 0) {
         toptenlocation_data && toptenlocation_data.map((toptenlocation, i) => (
+            toptenlocation_data.sort((a, b) => (a.count < b.count) ? 1 : -1),
             toptenLocationChart.series[0].data.push(toptenlocation.count),
             toptenLocationChart.options.xaxis.categories.push(toptenlocation.location)
         ))
@@ -387,7 +390,7 @@ const Dashboard = () => {
                         </div>
                     }
                 </Col>
-                <Col xs={12} sm={12} md={12} lg={12} xl={12} className="card">
+                <Col xs={6} sm={6} md={6} lg={6} xl={6} className="card">
                     <h5 className="text-center mt-5">Top 10 Locations</h5>
                     {toptenlocationloading === false ?
                         <div>
@@ -408,36 +411,80 @@ const Dashboard = () => {
                     }
                 </Col>
                 <Col xs={12} sm={12} md={6} lg={6} xl={6} className="card pt-5 pr-5 pl-5">
-                    <div>
+                    <Col>
+                        <div>
+                            <div class="card-header border-0 p-0">
+                                <Row>
+                                    <Col xs={7} sm={7} md={7} lg={7} xl={7}>
+                                        <h3 class="card-title font-weight-bolder text-dark">Category level Counts</h3>
+                                    </Col>
+                                    <Col>
+                                        <div class="d-flex flex-column text-right">
+                                            <span class="text-dark-75 font-weight-bolder font-size-h4">{categorylevelcount_data.total_active_cases}</span>
+                                            <span class="text-muted font-size-sm font-weight-bolder">Total Active Cases</span>
+                                        </div>
+                                    </Col>
+                                </Row>
+                            </div>
+                            {categorylevelcountloading === false ?
+                                <div class="card-body p-0 card-scroll mb-5">
+                                    {categorylevelcount_data.result.length === 0 ?
+                                        <div className="text-center mt-5">
+                                            <img src="../../../../../media/no-data.png" alt="no-dat" width="50" height="50" />
+                                            <h6 className="mt-5">No Data Found !</h6>
+                                        </div>
+                                        :
+                                        categorylevelcount_data && categorylevelcount_data.result.map((category, i) => (
+                                            <div class="mb-5" key={i}>
+                                                <h6 class="card-title font-weight-bolderfont-size-h6 mb-2 d-block">
+                                                    {category.category}</h6>
+                                                <div class="font-weight-bold text-muted font-size-sm">
+                                                    <span class="text-dark-75 font-size-h2 font-weight-bolder mr-2">
+                                                        {category.active_cases} -</span>Active Cases</div>
+                                                <ProgressBar now={category.active_cases} variant="warning" />
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                                :
+                                <div className="content-loader">
+                                    <div className="loader-wrapper">
+                                        <Spinner animation="border" variant="warning" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </Col>
+                    <Col>
                         <div class="card-header border-0 p-0">
                             <Row>
                                 <Col xs={7} sm={7} md={7} lg={7} xl={7}>
-                                    <h3 class="card-title font-weight-bolder text-dark">Category level Counts</h3>
+                                    <h3 class="card-title font-weight-bolder text-dark">Publisher level Counts</h3>
                                 </Col>
                                 <Col>
                                     <div class="d-flex flex-column text-right">
-                                        <span class="text-dark-75 font-weight-bolder font-size-h4">{categorylevelcount_data.total_active_cases}</span>
+                                        <span class="text-dark-75 font-weight-bolder font-size-h4">{publisherlevelcount_data.total_active_cases}</span>
                                         <span class="text-muted font-size-sm font-weight-bolder">Total Active Cases</span>
                                     </div>
                                 </Col>
                             </Row>
                         </div>
-                        {categorylevelcountloading === false ?
+                        {publisherlevelcountloading === false ?
                             <div class="card-body p-0 card-scroll mb-5">
-                                {categorylevelcount_data.result.length === 0 ?
+                                {publisherlevelcount_data.result.length === 0 ?
                                     <div className="text-center mt-5">
                                         <img src="../../../../../media/no-data.png" alt="no-dat" width="50" height="50" />
                                         <h6 className="mt-5">No Data Found !</h6>
                                     </div>
                                     :
-                                    categorylevelcount_data && categorylevelcount_data.result.map((category, i) => (
+                                    publisherlevelcount_data && publisherlevelcount_data.result.map((publisher, i) => (
                                         <div class="mb-5" key={i}>
                                             <h6 class="card-title font-weight-bolderfont-size-h6 mb-2 d-block">
-                                                {category.category}</h6>
+                                                {publisher.publisher}</h6>
                                             <div class="font-weight-bold text-muted font-size-sm">
                                                 <span class="text-dark-75 font-size-h2 font-weight-bolder mr-2">
-                                                    {category.active_cases} -</span>Active Cases</div>
-                                            <ProgressBar now={category.active_cases} variant="warning" />
+                                                    {publisher.active_cases} -</span>Active Cases</div>
+                                            <ProgressBar now={publisher.active_cases} variant="warning" />
                                         </div>
                                     ))
                                 }
@@ -449,49 +496,7 @@ const Dashboard = () => {
                                 </div>
                             </div>
                         }
-                    </div>
-                </Col>
-                <Col xs={12} sm={12} md={6} lg={6} xl={6} className="card pt-5 pr-5 pl-5">
-                    <div class="card-header border-0 p-0">
-                        <Row>
-                            <Col xs={7} sm={7} md={7} lg={7} xl={7}>
-                                <h3 class="card-title font-weight-bolder text-dark">Publisher level Counts</h3>
-                            </Col>
-                            <Col>
-                                <div class="d-flex flex-column text-right">
-                                    <span class="text-dark-75 font-weight-bolder font-size-h4">{publisherlevelcount_data.total_active_cases}</span>
-                                    <span class="text-muted font-size-sm font-weight-bolder">Total Active Cases</span>
-                                </div>
-                            </Col>
-                        </Row>
-                    </div>
-                    {publisherlevelcountloading === false ?
-                        <div class="card-body p-0 card-scroll mb-5">
-                            {publisherlevelcount_data.result.length === 0 ?
-                                <div className="text-center mt-5">
-                                    <img src="../../../../../media/no-data.png" alt="no-dat" width="50" height="50" />
-                                    <h6 className="mt-5">No Data Found !</h6>
-                                </div>
-                                :
-                                publisherlevelcount_data && publisherlevelcount_data.result.map((publisher, i) => (
-                                    <div class="mb-5" key={i}>
-                                        <h6 class="card-title font-weight-bolderfont-size-h6 mb-2 d-block">
-                                            {publisher.publisher}</h6>
-                                        <div class="font-weight-bold text-muted font-size-sm">
-                                            <span class="text-dark-75 font-size-h2 font-weight-bolder mr-2">
-                                                {publisher.active_cases} -</span>Active Cases</div>
-                                        <ProgressBar now={publisher.active_cases} variant="warning" />
-                                    </div>
-                                ))
-                            }
-                        </div>
-                        :
-                        <div className="content-loader">
-                            <div className="loader-wrapper">
-                                <Spinner animation="border" variant="warning" />
-                            </div>
-                        </div>
-                    }
+                    </Col>
                 </Col>
             </Row>
             <FilterDrawer panel={panel} toggleDrawer={toggleDrawer} handleSubmit={handleSubmit} />
