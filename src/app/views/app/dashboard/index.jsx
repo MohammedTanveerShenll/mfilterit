@@ -1,13 +1,15 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import Chart from 'react-apexcharts';
-import { ProgressBar, Spinner, Row, Col } from 'react-bootstrap';
+import { ProgressBar, Spinner, Row, Col, Button } from 'react-bootstrap';
 import FilterDrawer from '../shared-componets/filterdrawer';
 import {
     FetchTotalIncidents, FetchIncidentVolumes, FetchActivecasesbychannel, FetchSubchannel, FetchToptenLocation,
     FetchCategorlevelcount, FetchPublisherlevelcount
 } from "../../../../redux/actions/DashboardActions";
 import { useSelector, useDispatch } from 'react-redux';
+import SVG from "react-inlinesvg";
+import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
 
 const Dashboard = () => {
     const [channels, setChannels] = useState("all");
@@ -26,6 +28,10 @@ const Dashboard = () => {
     }
     const handleSubmit = (data) => {
         // setDashboarddata(data)
+    }
+
+    const openFilter = () => {
+        setPanel(true)
     }
 
     const data = {
@@ -90,10 +96,21 @@ const Dashboard = () => {
                 bar: {
                     horizontal: false,
                     columnWidth: '55%',
+                    dataLabels: {
+                        position: 'top', // top, center, bottom
+                    },
                 },
             },
             dataLabels: {
-                enabled: false
+                enabled: true,
+                formatter: function (val) {
+                    return val;
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
             },
             stroke: {
                 show: true,
@@ -236,192 +253,15 @@ const Dashboard = () => {
     }
 
     return (
-        <>
-            <div className="row">
-                {/* <div className="col-md-5 card card-custom p-0">
-                    <div className=''>
-                        <div className="card-body p-0 position-relative overflow-hidden" style={{ minHeight: "65vh" }}>
-                            {incidentloading === false ?
-                                <div>
-                                    <div
-                                        className="card-rounded-bottom bg-danger"
-                                        style={{ height: "auto" }}>
-                                        <div class="card-header border-0 bg-danger py-5">
-                                            <h3 class="card-title font-weight-bolder text-white">Incidents</h3>
-                                        </div>
-                                    </div>
-                                    <div className="card-spacer mt-n15">
-                                        <div className="row m-0">
-                                            <div className="col bg-light-warning px-6 py-8 rounded-xl mr-7 mb-7">
-                                                <span className="text-warning font-weight-bold font-size-h6">
-                                                    Total Incidents
-                                                </span>
-                                                <h1 className="text-warning font-weight-bold font-size-h1 mt-5">
-                                                    {incident_data.total}
-                                                </h1>
-                                            </div>
-                                            <div className="col bg-light-primary px-6 py-8 rounded-xl mb-7">
-                                                <span className="text-primary font-weight-bold font-size-h6 mt-2">
-                                                    Active Cases
-                                                </span>
-                                                <h1 className="text-primary font-weight-bold font-size-h1 mt-5">
-                                                    {incident_data.active}
-                                                </h1>
-                                            </div>
-                                        </div>
-                                        <div className="row m-0">
-                                            <div className="col bg-light-danger px-6 py-8 rounded-xl mr-7">
-                                                <span className="text-danger font-weight-bold font-size-h6 mt-2">
-                                                    Resolved Cases
-                                                </span>
-                                                <h1 className="text-danger font-weight-bold font-size-h1 mt-5">
-                                                    {incident_data.resolved}
-                                                </h1>
-                                            </div>
-                                            <div className="col bg-light-success px-6 py-8 rounded-xl">
-                                                <span className="text-success font-weight-bold font-size-h6 mt-2">
-                                                    In Progress
-                                                </span>
-                                                <h1 className="text-success font-weight-bold font-size-h1 mt-5">
-                                                    {incident_data.progress}
-                                                </h1>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                :
-                                <div className="content-loader">
-                                    <div className="loader-wrapper">
-                                        <Spinner animation="border" variant="warning" />
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-7 card card-custom p-0">
-                    {incidentvolumeloading === false ?
-                        <div className="card card-custom">
-                            <h5 className="text-center mt-5">Incident Volumes</h5>
-                            {incidentvolume_data.length === 0 ? "No Data" :
-                                <Chart options={barchartData.options} series={barchartData.series} type="bar" />
-                            }
-                        </div> :
-                        <div className="content-loader">
-                            <div className="loader-wrapper">
-                                <Spinner animation="border" variant="warning" />
-                            </div>
-                        </div>
-                    }
-                </div>
-                <div className="col-md-6 card card-custom">
-                    <div className="">
-                        <h5 className="text-center mt-5">Active Cases By Channels</h5>
-                        <Chart options={donutchartData.options} series={donutchartData.series} type="donut" />
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="card card-custom">
-                        <h5 className="text-center mt-5">Sub Channels</h5>
-                        <Chart options={subchannelChart.options} series={subchannelChart.series} type="bar" />
-                    </div>
-                </div>
-                <div className="col-md-12 card card-custom">
-                    <h5 className="text-center mt-5">Top 10 Locations</h5>
-                    <Chart options={toptenLocationChart.options} series={toptenLocationChart.series} type="bar" />
-                </div>
-                <div className="col-md-6 pl-0">
-                    <div className="card card-custom">
-                        <div class="card-header border-0">
-                            <h3 class="card-title font-weight-bolder text-dark">Category level Counts</h3>
-                        </div>
-                        <div class="card-body pt-0">
-                            <div class="d-flex align-items-center mb-9 bg-light-warning rounded p-5">
-                                <div class="d-flex flex-column flex-grow-1 mr-2">
-                                    <span class="font-weight-bold text-dark-75 font-size-lg mb-1">
-                                        Fake Customer Care No -
-                                        <span class="font-weight-bolder text-warning py-1 font-size-lg pl-3">27</span>
-                                    </span>
-                                    <span class="text-muted font-weight-bold">Case Ratio</span>
-                                </div>
-                                <span class="font-weight-bolder text-warning py-1 font-size-lg">71.05%</span>
-                            </div>
-
-                            <div class="d-flex align-items-center bg-light-success rounded p-5 mb-9">
-                                <div class="d-flex flex-column flex-grow-1 mr-2">
-                                    <span class="font-weight-bold text-dark-75 font-size-lg mb-1">
-                                        Fake Job Promotions -
-                                        <span class="font-weight-bolder text-success py-1 font-size-lg pl-3">9</span>
-                                    </span>
-                                    <span class="text-muted font-weight-bold">Case Ratio</span>
-                                </div>
-                                <span class="font-weight-bolder text-success py-1 font-size-lg">23.68%</span>
-                            </div>
-                            <div class="d-flex align-items-center bg-light-danger rounded p-5 mb-9">
-                                <div class="d-flex flex-column flex-grow-1 mr-2">
-                                    <span class="font-weight-bold text-dark-75 font-size-lg mb-1">
-                                        Fake Offers -
-                                        <span class="font-weight-bolder text-danger py-1 font-size-lg pl-3">2</span>
-                                    </span>
-                                    <span class="text-muted font-weight-bold">Case Ratio</span>
-                                </div>
-                                <span class="font-weight-bolder text-danger py-1 font-size-lg">5.26%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-md-6 card card-custom">
-                    <div class="card-header border-0">
-                        <h3 class="card-title font-weight-bolder text-dark">Publisher level Counts</h3>
-                    </div>
-                    <div class="card-body pt-0 card-scroll">
-                        <div class="mb-5">
-                            <h6 class="card-title font-weight-bolderfont-size-h6 mb-2 d-block">
-                                8328799570 - 2</h6>
-                            <div class="font-weight-bold text-muted font-size-sm">
-                                <span class="text-dark-75 font-size-h2 font-weight-bolder mr-2">5.26%</span>Case Ratio</div>
-                            <ProgressBar now="5.26" variant="warning" />
-                        </div>
-
-                        <div class="mb-5">
-                            <h6 class="card-title font-weight-bolderfont-size-h6 mb-2 d-block">
-                                7387060648 - 1</h6>
-                            <div class="font-weight-bold text-muted font-size-sm">
-                                <span class="text-dark-75 font-size-h2 font-weight-bolder mr-2">2.63%</span>Case Ratio</div>
-                            <ProgressBar now="2.63" variant="warning" />
-                        </div>
-
-                        <div class="mb-5">
-                            <h6 class="card-title font-weight-bolderfont-size-h6 mb-2 d-block">
-                                8965325689 - 5</h6>
-                            <div class="font-weight-bold text-muted font-size-sm">
-                                <span class="text-dark-75 font-size-h2 font-weight-bolder mr-2">50.5%</span>Case Ratio</div>
-                            <ProgressBar now="50.5" variant="warning" />
-                        </div>
-
-                        <div class="mb-5">
-                            <h6 class="card-title font-weight-bolderfont-size-h6 mb-2 d-block">
-                                7845124578 - 3</h6>
-                            <div class="font-weight-bold text-muted font-size-sm">
-                                <span class="text-dark-75 font-size-h2 font-weight-bolder mr-2">45.25%</span>Case Ratio</div>
-                            <ProgressBar now="45.25" variant="warning" />
-                        </div>
-
-                        <div class="mb-5">
-                            <h6 class="card-title font-weight-bolderfont-size-h6 mb-2 d-block">
-                                9589784512 - 5</h6>
-                            <div class="font-weight-bold text-muted font-size-sm">
-                                <span class="text-dark-75 font-size-h2 font-weight-bolder mr-2">80.36%</span>Case Ratio</div>
-                            <ProgressBar now="80.36" variant="warning" />
-                        </div>
-
-                    </div>
-                </div> */}
-            </div>
-
+        <div>
+            {/* <Button onClick={openFilter}>
+                <span className="svg-icon svg-icon-xl svg-icon-primary">
+                    <SVG src={toAbsoluteUrl("media/svg/icons/Text/Filter.svg")} />
+                </span>
+            </Button> */}
             <Row gutter={[8, 8]}>
-                <Col xs={12} sm={12} md={5} lg={5} xl={5}>
-                    <div className="card card-body p-0 position-relative overflow-hidden" style={{ minHeight: "65vh" }}>
+                <Col xs={12} sm={12} md={5} lg={5} xl={5} className="card">
+                    <div className="p-0 position-relative overflow-hidden">
                         <div>
                             <div
                                 className="card-rounded-bottom bg-danger"
@@ -490,7 +330,12 @@ const Dashboard = () => {
                     <h5 className="text-center mt-5">Incident Volumes</h5>
                     {incidentvolumeloading === false ?
                         <div>
-                            {incidentvolume_data.length === 0 ? "No Data" :
+                            {incidentvolume_data.length === 0 ?
+                                <div className="text-center mt-5">
+                                    <img src="../../../../../media/no-data.png" alt="no-dat" width="50" height="50" />
+                                    <h6 className="mt-5">No Data Found !</h6>
+                                </div>
+                                :
                                 <Chart options={barchartData.options} series={barchartData.series} type="bar" />
                             }
                         </div> :
@@ -505,7 +350,12 @@ const Dashboard = () => {
                     <h5 className="text-center mt-5">Active Cases By Channels</h5>
                     {activecaseloading === false ?
                         <div>
-                            {activecasebychannel_data.length === 0 ? "No Data" :
+                            {activecasebychannel_data.length === 0 ?
+                                <div className="text-center mt-5">
+                                    <img src="../../../../../media/no-data.png" alt="no-dat" width="50" height="50" />
+                                    <h6 className="mt-5">No Data Found !</h6>
+                                </div>
+                                :
                                 <Chart options={donutchartData.options} series={donutchartData.series} type="donut" />
                             }
                         </div>
@@ -521,7 +371,12 @@ const Dashboard = () => {
                     <h5 className="text-center mt-5">Sub Channels</h5>
                     {subchannelloading === false ?
                         <div>
-                            {subchannel_data.length === 0 ? "No Data" :
+                            {subchannel_data.length === 0 ?
+                                <div className="text-center mt-5">
+                                    <img src="../../../../../media/no-data.png" alt="no-dat" width="50" height="50" />
+                                    <h6 className="mt-5">No Data Found !</h6>
+                                </div>
+                                :
                                 <Chart options={subchannelChart.options} series={subchannelChart.series} type="bar" />
                             }
                         </div> :
@@ -536,7 +391,12 @@ const Dashboard = () => {
                     <h5 className="text-center mt-5">Top 10 Locations</h5>
                     {toptenlocationloading === false ?
                         <div>
-                            {toptenlocation_data.length === 0 ? "No Data" :
+                            {toptenlocation_data.length === 0 ?
+                                <div className="text-center mt-5">
+                                    <img src="../../../../../media/no-data.png" alt="no-dat" width="50" height="50" />
+                                    <h6 className="mt-5">No Data Found !</h6>
+                                </div>
+                                :
                                 <Chart options={toptenLocationChart.options} series={toptenLocationChart.series} type="bar" />
                             }
                         </div> :
@@ -547,7 +407,6 @@ const Dashboard = () => {
                         </div>
                     }
                 </Col>
-
                 <Col xs={12} sm={12} md={6} lg={6} xl={6} className="card pt-5 pr-5 pl-5">
                     <div>
                         <div class="card-header border-0 p-0">
@@ -565,7 +424,12 @@ const Dashboard = () => {
                         </div>
                         {categorylevelcountloading === false ?
                             <div class="card-body p-0 card-scroll mb-5">
-                                {categorylevelcount_data.result.length === 0 ? "No Data" :
+                                {categorylevelcount_data.result.length === 0 ?
+                                    <div className="text-center mt-5">
+                                        <img src="../../../../../media/no-data.png" alt="no-dat" width="50" height="50" />
+                                        <h6 className="mt-5">No Data Found !</h6>
+                                    </div>
+                                    :
                                     categorylevelcount_data && categorylevelcount_data.result.map((category, i) => (
                                         <div class="mb-5" key={i}>
                                             <h6 class="card-title font-weight-bolderfont-size-h6 mb-2 d-block">
@@ -603,7 +467,12 @@ const Dashboard = () => {
                     </div>
                     {publisherlevelcountloading === false ?
                         <div class="card-body p-0 card-scroll mb-5">
-                            {publisherlevelcount_data.result.length === 0 ? "No Data" :
+                            {publisherlevelcount_data.result.length === 0 ?
+                                <div className="text-center mt-5">
+                                    <img src="../../../../../media/no-data.png" alt="no-dat" width="50" height="50" />
+                                    <h6 className="mt-5">No Data Found !</h6>
+                                </div>
+                                :
                                 publisherlevelcount_data && publisherlevelcount_data.result.map((publisher, i) => (
                                     <div class="mb-5" key={i}>
                                         <h6 class="card-title font-weight-bolderfont-size-h6 mb-2 d-block">
@@ -624,10 +493,9 @@ const Dashboard = () => {
                         </div>
                     }
                 </Col>
-
             </Row>
             <FilterDrawer panel={panel} toggleDrawer={toggleDrawer} handleSubmit={handleSubmit} />
-        </>
+        </div>
     );
 }
 
