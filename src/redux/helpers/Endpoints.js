@@ -9,6 +9,13 @@ const EndPoints = {
     topten_location: `/api/bi/plots/top_ten_location`,
     category_level_count: `/api/bi/plots/category_level_count`,
     publisher_level_count: `/api/bi/plots/publisher_level_count`,
+    channel_list: `/api/bi/filters/channel`,
+    country_list: `/api/bi/filters/country`,
+    category_list: `/api/bi/filters/category`,
+    brand_list: `/api/bi/filters/brand`,
+    priority_list: `/api/bi/filters/priority`,
+    publisher_list: `/api/bi/filters/publisher`,
+    status_list: `/api/bi/filters/status`,
 }
 const ApiUrl = "http://infringementapi.mfilterit.net"
 

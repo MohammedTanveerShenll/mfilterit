@@ -22,7 +22,7 @@ const Dashboard = () => {
     const [priorities, setPriorities] = useState("all");
     const [status, setStatus] = useState("all");
 
-    const [panel, setPanel] = useState(false);
+    const [panel, setPanel] = useState(true);
     const dispatch = useDispatch()
     // const [dashboarddata, setDashboarddata] = useState();
     const toggleDrawer = (e) => {
