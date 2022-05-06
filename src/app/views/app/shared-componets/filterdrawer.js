@@ -20,6 +20,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { FetchFilterlist,FetchChannellist,FetchCountrylist,FetchCategorylist,FetchBrandlist,FetchPrioritylist,FetchPublisherlist,FetchStatuslist } from "../../../../redux/actions/CommonActions"
 import moment from 'moment';
 import { connect } from 'react-redux'
+import { values } from 'lodash';
 
 
  const FilterDrawer = ({category_list,
@@ -38,24 +39,68 @@ import { connect } from 'react-redux'
 {
     package_name: '', channels: [],categories:[],publishers:[],countries:[],brands:[],priority:[]
 }
+ );
 
-        );
+ const [channels, setChannels] = useState(
+     {
+         channel:''
+     }
+ );
+    const [categories, setCategories] = useState("all");
+    const [publishers, setPublishers] = useState("all");
+    const [countries, setCountries] = useState("all");
+    const [brands, setBrands] = useState("all");
+    const [priorities, setPriorities] = useState("all");
+    const [status, setStatus] = useState("all");
+    const [valuedefined, setValuedefined] = useState({
+        workDays: []
+    });
+
+    console.log('valuedefined^^^^^^^^^',valuedefined);
+
         const toggleDrawer = (e) => {
             setPanel(false)
         }
-        const handleSubmit = (event) => {
-        
-            const target = event.target
-            const value =  target.checked 
-        const name = target.name
-    
-             setDashboarddata((state) => ({
-            ...state,
-              [name]: value
-         }))
-             console.log('saving data');
+
+
+        const handleSubmit = (e) => {
+            // const { name, checked } = e.target
+            // setDashboarddata((values) => ({ ...values, [name]: checked }))
+            // console.log('submitn,,');      
+   
         }
+
+    const [selectedCheckboxes, setSelectedCheckboxes] = useState([])
+    let checkedArray = []
+if (selectedCheckboxes) {
+    checkedArray.push(
+       selectedCheckboxes
+    )
+}
+console.log("checkedArray1111",checkedArray)
+
+
+        const handleCheckbox = (event) => {
+            const { name, checked ,value} = event.target
+            
+            if(checked && name==='channels'){
+                setDashboarddata((prevState) => (
+            
+                    {
+                         channels: [...prevState.channels,value]
+                       }))
+                 
+        
+                }
+                else if(!checked){
+                    dashboarddata.pop(value)
+                }
+            }
+        
+    
      
+        console.log('dassssssssssssh',dashboarddata);
+        
      
        
     const useStyles = makeStyles({
@@ -101,18 +146,7 @@ import { connect } from 'react-redux'
     const classes = useStyles();
     localStorage.setItem("startDate", moment(new Date(startDate)).format('YYYY-MM-DD'));
     localStorage.setItem("endDate", moment(new Date(endDate)).format('YYYY-MM-DD'));
-    // const handleSearch = (formData) => {
-    //     handleSubmit(formData);
-    //     console.log(localStorage.getItem("startDate"));
-    //     console.log(localStorage.getItem("endDate"));
-    // }
 
-    // useEffect(() => {
-    //     dispatch(FetchFilterlist(packageName))
-    // }, [])
-
-    // const filter_list = useSelector(state => state.common.filter_list)
-    // // const loading = useSelector(state => state.dashboard.loading)
     useEffect(() => {
         if (brand_list && country_name  && priority_list  && status_list  && category_list  && channel_list   && publisher_list ) 
         {
@@ -195,13 +229,9 @@ import { connect } from 'react-redux'
         console.log('xxxxxxx getChannel xxxxxxxxx',getChannel); 
         console.log('xxxxxxx getCategory xxxxxxxxx',getCategory); 
 
-//         const radioChange = (e,value,check,name) => {
-//  [name][value]['selected_check'] = check;
-//             // [secindex][name][qindex]['selected_answer'] = check;
-//             console.log(check,'check');
-//           }
-        
-  
+
+        const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+        console.log('my channels ashakljljkl dashboard',dashboarddata);
         return (
             <Drawer
                 anchor={"right"}
@@ -211,14 +241,24 @@ import { connect } from 'react-redux'
                 <div style={{ width: "300px" }}>
                     <div>
                         <Formik
-                            initialValues={{  }}
-                            onSubmit={(values, { setSubmitting }) => {
-                                handleSubmit(values);
-                                // setSubmitting(false);
-                            }}>
+                            initialValues={{dashboarddata}}
+                            onSubmit =
+                            {async (values) => {
+                                await sleep(500);
+                                // alert(JSON.stringify(values, null, 2));
+                                const { name, checked } = values.target
+                                setDashboarddata(prevState => (
+                                    console.log('prevState', prevState),
+                                    {
+                                        //  channels: [...prevState.channels, value]
+                                       }))
+                                console.log('submitn,,');      
+                              }}
+                            >
                             {({ values, errors, touched, handleChange, handleBlur, handleSubmit,
                                 setFieldValue, isSubmitting, }) => (
-                                <form onSubmit={handleSubmit}>
+                                // <form onSubmit={handleSubmit}>
+                                <Form onSubmit={handleSubmit}>
                                     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                                         <label>Select Date</label>
                                         <DatePicker
@@ -279,14 +319,18 @@ import { connect } from 'react-redux'
                                                 </div>
                                             </ExpansionPanelActions>
                                             <ExpansionPanelDetails className={classes.details}>
+             
                                             <Form.Group controlId="formBasicChecbox" className='checkbox-inner mb-0'>
                                                   {getChannel.map((item)=>(
                                                     
-                                                    <Checkbox children={item.channel_name}  name='channel' value={item.channel_name} checked={item.channel_name}
-                                                    ></Checkbox>
-                                                   
-                                                 
+                                                    <Checkbox children={item.channel_name}
+                                                    onClick={handleCheckbox}
+                                                    name='channels' value={item.channel_name} >
+                                                    </Checkbox>
                                                     ))}
+
+
+
                                                      </Form.Group>
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
@@ -338,7 +382,9 @@ import { connect } from 'react-redux'
                                                 <Form.Group controlId="formBasicChecbox" className='checkbox-inner mb-0'>
                                                   {getCategory.map((item)=>(
                                                     
-                                                    <Checkbox children={item.category} ></Checkbox>
+                                                    <Checkbox children={item.category} name={item.category}
+                                                    value={item.category}
+                                                    ></Checkbox>
                                                    
                                                  
                                                     ))}
@@ -389,8 +435,8 @@ import { connect } from 'react-redux'
                                             <Form.Group controlId="formBasicChecbox" className='checkbox-inner mb-0'>
                                                   {getPublisher.map((item)=>(
                                                     
-                                                    <Checkbox children={item.publisher} ></Checkbox>
-                                                   
+                                                 
+                                                    <Checkbox children={item.publisher} name='publisher' value={item.publisher} ></Checkbox>
                                                  
                                                     ))}
                                                      </Form.Group>
@@ -439,7 +485,8 @@ import { connect } from 'react-redux'
                                             <Form.Group controlId="formBasicChecbox" className='checkbox-inner mb-0'>
                                                   {getCountry.map((item)=>(
                                                     
-                                                    <Checkbox children={item.country} ></Checkbox>
+                                                    // <Checkbox children={item.country} ></Checkbox>
+                                                    <Checkbox children={item.country} name='country' value={item.country} ></Checkbox>
                                                    
                                                  
                                                     ))}
@@ -490,8 +537,8 @@ import { connect } from 'react-redux'
                                             <Form.Group controlId="formBasicChecbox" className='checkbox-inner mb-0'>
                                                   {getBrand.map((item)=>(
                                                     
-                                                    <Checkbox children={item.brand} ></Checkbox>
-                                                   
+                                                 
+                                                    <Checkbox children={item.brand} name='brand' value={item.brand} ></Checkbox>
                                                  
                                                     ))}
                                                      </Form.Group>
@@ -541,8 +588,8 @@ import { connect } from 'react-redux'
                                                 <Form.Group controlId="formBasicChecbox" className='checkbox-inner mb-0'>
                                                   {getPriorities.map((item)=>(
                                                     
-                                                    <Checkbox children={item.priority} ></Checkbox>
-                                                   
+                                         
+                                                    <Checkbox children={item.priority} name='priority' value={item.priority} ></Checkbox>
                                                  
                                                     ))}
                                                      </Form.Group>
@@ -557,7 +604,7 @@ import { connect } from 'react-redux'
                                         </Button>
                                     </Col>
     
-                                </form>
+                                </Form>
                             )}
                         </Formik>
                     </div>
