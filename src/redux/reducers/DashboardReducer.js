@@ -43,6 +43,12 @@ const DashboardReducer = (state = initialState, { type, response }) => {
                 incidentvolumneloading: true,
             };
 
+            case constant.DASHBOARD_DATA:
+                return {
+                    ...state,
+                    DashboardData: response && response.data,
+                };
+
         case constant.ACTIVECASE_CHANNEL:
             return {
                 ...state,

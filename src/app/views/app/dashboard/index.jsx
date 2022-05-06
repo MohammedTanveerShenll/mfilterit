@@ -24,12 +24,13 @@ const Dashboard = () => {
 
     const [panel, setPanel] = useState(true);
     const dispatch = useDispatch()
-    // const [dashboarddata, setDashboarddata] = useState();
+     const [dashboarddata, setDashboarddata] = useState();
     const toggleDrawer = (e) => {
         setPanel(false)
     }
     const handleSubmit = (data) => {
-        // setDashboarddata(data)
+        //  setDashboarddata(data)
+        console.log('inside dashboard');
     }
 
     const openFilter = () => {
@@ -58,6 +59,7 @@ const Dashboard = () => {
         dispatch(FetchCategorlevelcount(data))
         dispatch(FetchPublisherlevelcount(data))
     }, [])
+    const dashboardData = useSelector(state => state.dashboard.DashboardData)
 
     const incident_data = useSelector(state => state.dashboard.incident_data)
     const incidentloading = useSelector(state => state.dashboard.incidentloading)
@@ -79,6 +81,8 @@ const Dashboard = () => {
 
     const publisherlevelcount_data = useSelector(state => state.dashboard.publisherlevelcount_data)
     const publisherlevelcountloading = useSelector(state => state.dashboard.publisherlevelcount_loading)
+
+    console.log('dashboardData', dashboardData)
 
     const barchartData = {
         series: [{
