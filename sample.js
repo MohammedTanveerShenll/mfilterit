@@ -70,6 +70,19 @@ import { values } from 'lodash';
    
         }
 
+    //  const   handleCheckboxChange = (event) => {
+
+    //         let newArray = [event.target.value]
+    //         // console.log('newArray', newArray)
+    //         // console.log('event.target.value', event.target.value)
+
+    //         // if (valuedefined.workDays.includes(event.target.value)) {
+    //         //   newArray = newArray.filter(day => day !== event.target.value);
+    //         // }
+    //         setValuedefined({
+    //           workDays: newArray
+    //         });
+    //       };
     const [selectedCheckboxes, setSelectedCheckboxes] = useState([])
     let checkedArray = []
 if (selectedCheckboxes) {
@@ -79,24 +92,55 @@ if (selectedCheckboxes) {
 }
 console.log("checkedArray1111",checkedArray)
 
-
+console.log("selectedCheckboxes@@@@@@",selectedCheckboxes)
         const handleCheckbox = (event) => {
-            const { name, checked ,value} = event.target
-            
-  
-                setDashboarddata((prevState) => (
-            
-                    {
-                         channels: [...prevState.channels,value]
-                       }))
-                 
-        
-                console.log('dafsfsfsfshboard',dashboarddata);
-            }
-        
-    
+            setSelectedCheckboxes((prev) => [...prev, event.target.value]);
+
+            // setSelectedCheckboxes((selectedCheckboxes) => ({
+            //     ...selectedCheckboxes, [selectedCheckboxes.customValue] : event.target.value 
+            // }))
+            // setSelectedCheckboxes((values) => ({
+            //     ...values, [e.target.name]: e.target.value,
+            //     customValue: selectedCheckboxes.customValue.map((obj, i) =>
+            //       i === currentIndex ?
+            //         Object.assign(obj, {
+            //           ...obj,
+            //           [e.target.name]: e.target.value,
+            //         })
+            //         : obj
+            //     )
+            //   }))
+
+            // const selectedCheckboxes = [...selectedCheckboxes];
+            // console.log("selectedCheckboxes00000$",selectedCheckboxes)
+
+            // const isChecked = selectedCheckboxes.includes(event.target.value);
+            // if (!isChecked) {
+            //     selectedCheckboxes.push(event.target.value);
+            //   } else {
+            //     selectedCheckboxes.splice(selectedCheckboxes.indexOf(event.target.value), 1);
+            //   }
+            //   setSelectedCheckboxes(selectedCheckboxes);
+
+// console.log("isChecked$$$$$$$",isChecked)
+          
+        //    if (checked) {
+            // setDashboarddata(
+            //     // current=>[...current,({channel:value})]
+            //     (values) => ({ ...values, channels: value })
+            //     )
+        //   }
+
+        // setDashboarddata(prevState => (
+        //     console.log('prevState', prevState),
+        //     {
+        //          channels: [...prevState.channels, value]
+        //        }))
+          console.log('prevState%%%%,b,mb,mb',dashboarddata);
+
+        }
      
-        console.log('dassssssssssssh',dashboarddata);
+
         
      
        
@@ -143,7 +187,18 @@ console.log("checkedArray1111",checkedArray)
     const classes = useStyles();
     localStorage.setItem("startDate", moment(new Date(startDate)).format('YYYY-MM-DD'));
     localStorage.setItem("endDate", moment(new Date(endDate)).format('YYYY-MM-DD'));
+    // const handleSearch = (formData) => {
+    //     handleSubmit(formData);
+    //     console.log(localStorage.getItem("startDate"));
+    //     console.log(localStorage.getItem("endDate"));
+    // }
 
+    // useEffect(() => {
+    //     dispatch(FetchFilterlist(packageName))
+    // }, [])
+
+    // const filter_list = useSelector(state => state.common.filter_list)
+    // // const loading = useSelector(state => state.dashboard.loading)
     useEffect(() => {
         if (brand_list && country_name  && priority_list  && status_list  && category_list  && channel_list   && publisher_list ) 
         {
@@ -240,9 +295,17 @@ console.log("checkedArray1111",checkedArray)
                         <Formik
                             initialValues={{dashboarddata}}
                             onSubmit =
-                         {
-                             console.log('dsfs')
-                         }
+                            {async (values) => {
+                                await sleep(500);
+                                // alert(JSON.stringify(values, null, 2));
+                                const { name, checked } = values.target
+                                setDashboarddata(prevState => (
+                                    console.log('prevState', prevState),
+                                    {
+                                        //  channels: [...prevState.channels, value]
+                                       }))
+                                console.log('submitn,,');      
+                              }}
                             >
                             {({ values, errors, touched, handleChange, handleBlur, handleSubmit,
                                 setFieldValue, isSubmitting, }) => (
@@ -313,7 +376,7 @@ console.log("checkedArray1111",checkedArray)
                                                   {getChannel.map((item)=>(
                                                     
                                                     <Checkbox children={item.channel_name}
-                                                    onChange={handleCheckbox}
+                                                    onClick={handleCheckbox}
                                                     name='channels' value={item.channel_name} >
                                                     </Checkbox>
                                                     ))}

@@ -1,13 +1,13 @@
 import React from "react";
 
-export function Checkbox({ children,value,name,isSelected}) {
+export function Checkbox({ children,value,name,onChange}) {
   return (
     <>
       <input type="checkbox" style={{ display: "none" }} />
       <label className="checkbox checkbox-lg checkbox-single">
         <input type="checkbox" 
-        checked={isSelected} 
-        // onChange={onChange} name={name} 
+   
+   onChange={onChange}  
         value={value}
         name={name}
         />
