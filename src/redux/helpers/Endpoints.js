@@ -16,6 +16,7 @@ const EndPoints = {
     priority_list: `/api/bi/filters/priority`,
     publisher_list: `/api/bi/filters/publisher`,
     status_list: `/api/bi/filters/status`,
+    report_list: `/api/bi/report`,
 }
 const ApiUrl = "http://infringementapi.mfilterit.net"
 

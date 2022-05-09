@@ -7,6 +7,7 @@ import { remarksSlice } from "../app/modules/ECommerce/_redux/remarks/remarksSli
 import { specificationsSlice } from "../app/modules/ECommerce/_redux/specifications/specificationsSlice";
 import DashboardReducer from "./reducers/DashboardReducer";
 import CommonReducer from "./reducers/CommonReducer";
+import ReportReducer from './reducers/ReportReducer'
 
 export const rootReducer = combineReducers({
     auth: auth.reducer,
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
     specifications: specificationsSlice.reducer,
     dashboard: DashboardReducer,
     common: CommonReducer,
+    report : ReportReducer
 });
 
 // export function* rootSaga() {

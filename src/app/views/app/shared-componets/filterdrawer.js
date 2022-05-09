@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-restricted-imports */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useReducer  } from 'react'
 import Drawer from '@material-ui/core/Drawer';
 import { Formik, Field } from 'formik';
 import { Row, Col, Button, Card, InputGroup, FormControl, Form } from "react-bootstrap";
@@ -19,9 +19,10 @@ import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import * as constant from "../../../../redux/constants/DashboardConstants";
 import { FetchFilterlist,FetchChannellist,FetchCountrylist,FetchCategorylist,FetchBrandlist,FetchPrioritylist,FetchPublisherlist,FetchStatuslist } from "../../../../redux/actions/CommonActions"
+import {FetchDASHBOARDChannelData} from "../../../../redux/actions/DashboardActions"
 import moment from 'moment';
 import { connect } from 'react-redux'
-import { values } from 'lodash';
+import { values } from 'lodash'
 
 
  const FilterDrawer = ({category_list,
@@ -32,19 +33,13 @@ import { values } from 'lodash';
     country_name,
      brand_list}) => {
         const packageName = localStorage.getItem('dpackage');
-        console.log('packageName drawer',packageName);
         const dispatch = useDispatch()
         const [panel, setPanel] = useState(true);
         
-        const [dashboarddata, setDashboarddata] = useState(
-{
-    package_name: '', channels: [],categories:[],publishers:[],countries:[],brands:[],priority:[]
-}
- );
+  
 
 
 
- console.log("xxxxxxooooooxxxxxx",dashboarddata)
 
  const [channels, setChannels] = useState(
   { channels: []}
@@ -59,37 +54,28 @@ import { values } from 'lodash';
         workDays: []
     });
 
-    // console.log('valuedefined^^^^^^^^^',valuedefined);
+    const [dashboarddata, setDashboarddata] = useState(
+        {
+           
+        }
+         );
 
         const toggleDrawer = (e) => {
             setPanel(false)
         }
 
 
-        const handleSubmit = (e) => {
-          e.target.preventDefault();
-          console.log('submit');
-          // dispatch({type: constant.DASHBOARD_DATA, DashboardData: dashboarddata})
-            // const { name, checked } = e.target
-            // setDashboarddata((values) => ({ ...values, [name]: checked }))
-            // console.log('submitn,,');      
-   
-        }
+        
 
-    const [selectedCheckboxes, setSelectedCheckboxes] = useState([])
-    let checkedArray = []
-if (selectedCheckboxes) {
-    checkedArray.push(
-       selectedCheckboxes
-    )
-}
 
 
         const handleCheckbox = (event) => {
             const { name, checked ,value} = event.target
             const test = dashboarddata && dashboarddata.name
             && dashboarddata.name.filter(x =>  x !== value ? x : null )
-
+setDashboarddata(
+    channels
+)
 
 
   if(checked){
@@ -100,6 +86,8 @@ if (selectedCheckboxes) {
 
                  'channels' : [...prevState['channels'],value]
         }))
+        
+
       }
       if(name=='categories' && checked){
         setCategories((prevState) => (
@@ -189,24 +177,11 @@ if(priorities && priorities['priorities'].includes(value)){
     })
   )
 }
-
-  
             
         }
-
-
-
-        }
+  }
     
-     
-         console.log('channnnnels',channels);
-         console.log('catyttegories',categories);
-         console.log('countries',countries);
-         console.log('brands',brands);
-         console.log('priorities',priorities);
-         console.log('publishers',publishers);
-       
-        
+ 
      
        
     const useStyles = makeStyles({
@@ -244,7 +219,6 @@ if(priorities && priorities['priorities'].includes(value)){
         channel:'all',
         priority:'all'
       })
-      // console.log('my filter at drawer ',filters); 
     const date = new Date();
     const weekstartdate = date.setDate(date.getDate() - 6)
     const [startDate, setStartDate] = useState(weekstartdate);
@@ -286,7 +260,6 @@ if(priorities && priorities['priorities'].includes(value)){
          dispatch(FetchStatuslist(packageName,'2021-01-10','2022-01-10'))
 
     }, [])
-    // console.log('drawer filter',filters);
     useEffect(() => {
         if (brand_list  && country_name  && priority_list  && status_list  && category_list  && channel_list   && publisher_list ) 
         {
@@ -302,7 +275,6 @@ if(priorities && priorities['priorities'].includes(value)){
          }))
         
            }
-             console.log('my filter at drawer',filters); 
 
 
            
@@ -331,13 +303,35 @@ if(priorities && priorities['priorities'].includes(value)){
 
 
 
-
-        // console.log('xxxxxxx getChannel xxxxxxxxx',getChannel); 
-        // console.log('xxxxxxx getCategory xxxxxxxxx',getCategory); 
-
+        const handleSubmit = (e) => {
+            e.preventDefault();
+            console.log('channelsjkbkjbkj',channels);
+            console.log('submitttinggggggggg');
+            // localStorage.setItem('channels', JSON.stringify(channels))
+            // console.log('propssss',props);
+            //  props.onSubmit(channels);
+          }
+          const initialState = {
+       channels
+          }
+          function Reducer(state = initialState, { type, response }) {
+            switch (type) {
+              
+              case constant.DASHBOARD_DATA:
+                // console.log('action',action.type)
+                console.log('response',response)
+              return {    ...state,
+                    dashboard_data_loading: true,
+                    dashboard_data: response
+                };
+        
+              default:
+                throw new Error();
+            }
+          }
 
         const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-        // console.log('my channels ashakljljkl dashboard',dashboarddata);
+
         return (
             <Drawer
                 anchor={"right"}
@@ -572,7 +566,8 @@ if(priorities && priorities['priorities'].includes(value)){
                                                     <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}></Typography>
                                                 </div>
                                                 <div className={classes.column}>
-                                                    <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}>0 Selected</Typography>
+                                               <Typography className={clsx(classes.secondaryHeading, classes.orange_color)}> 1 Selected</Typography>
+                                           
                                                 </div>
                                             </ExpansionPanelSummary>
                                             <Divider />
@@ -738,7 +733,7 @@ if(priorities && priorities['priorities'].includes(value)){
 
 const mapStateToProps = (state) => {
       const { common } = state
-      //  console.log('common', common)
+      
       return {
         brand_list:
           common && common.brand_list ? common.brand_list : [],
@@ -756,16 +751,8 @@ const mapStateToProps = (state) => {
           common && common.country_name ? common.country_name : [],
       }
     }
-  const mapDispatchToProps = (dispatch) => ({
-    //  getBrandDipatch : (params) =>   dispatch(FetchBrandlist(params)),
-    
-    // getUserTypeDispatch: (params) => dispatch(userTypesActions.getUserType(params)),
-    // deleteUsertypeDispatch: (params) => dispatch(deleteUsertypeActions.deleteUsertype(params)),
-    // getUsertypeDetailsDispatch: (data) =>
-    //   dispatch(userTypeDetailsActions.getUsertypeDetails(data)),
-    // clearUsertypeDetailsDispatch: () =>
-    //   dispatch(userTypeDetailsActions.clearUsertypeDetails()),
-    // clearDeleteUsertypeDispatch: () => dispatch(deleteUsertypeActions.clearDeleteUsertype())
-  })
+  const mapDispatchToProps = channels => {
+// return {...channels}
+  }
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilterDrawer) 
+export default connect(mapStateToProps)(FilterDrawer) 

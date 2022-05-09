@@ -27,9 +27,15 @@ const initialState = {
     publisherlevelcount_data: [],
     publisherlevelcount_loading: true,
     publisherlevelcount_error: null,
+
+    dashboard_data: {},
+    dashboard_data_loading: true,
+    dashboard_data_error: null,
 };
 
 const DashboardReducer = (state = initialState, { type, response }) => {
+
+
     switch (type) {
         case constant.TOTAL_INCIDENTS:
             return {
@@ -46,7 +52,8 @@ const DashboardReducer = (state = initialState, { type, response }) => {
             case constant.DASHBOARD_DATA:
                 return {
                     ...state,
-                    DashboardData: response && response.data,
+                    dashboard_data_loading: true,
+                    dashboard_data: response
                 };
 
         case constant.ACTIVECASE_CHANNEL:
@@ -80,6 +87,13 @@ const DashboardReducer = (state = initialState, { type, response }) => {
             };
 
         // success
+        case constant.DASHBOARD_DATA_SUCCESS:
+
+            return {
+                ...state,
+                dashboard_data_loading: false,
+                dashboard_data:  response.data,
+            };
 
         case constant.TOTAL_INCIDENTS_SUCCESS:
             return {

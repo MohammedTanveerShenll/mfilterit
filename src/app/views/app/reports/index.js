@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import {
     Card,
@@ -20,10 +20,22 @@ import { data } from './data'
 import "./index.css";
 // import ToolkitProvider, { Search } from 'react-bootstrap-table2-toolkit';
 import { Row, Col, Button } from "react-bootstrap";
-
-const Reports = () => {
+import {FetchReport} from "../../../../redux/actions/ReportActions"
+import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
+const Reports = ({report_list}) => {
     const [show, setEditShow] = useState(false);
     const handleEditShow = () => setEditShow(true);
+    const packageName = localStorage.getItem('dpackage');
+    const dispatch = useDispatch();
+    useEffect(() => {
+ 
+        dispatch(FetchReport(packageName,'2021-01-10','2022-01-10','all','all','all','all','all','all','all'))
+   
+
+    }, [])
+
+    console.log('reportsss',report_list);
     const columns = [
         {
             dataField: "id",
@@ -938,7 +950,7 @@ const Reports = () => {
                             <BootstrapTable
                                 bootstrap4
                                 keyField="id"
-                                data={data}
+                                data={report_list}
                                 columns={columns}
                                 pagination={paginationFactory(options)}
                                 wrapperClasses="table-responsive"
@@ -965,4 +977,17 @@ const Reports = () => {
     )
 }
 
-export default Reports;
+const mapStateToProps = (state) => {
+    const { report } = state
+    console.log('statestatestate',state);
+    return {
+      report_list:
+      report && report.report_list ? report.report_list : [],
+   
+    }
+  }
+const mapDispatchToProps = channels => {
+// return {...channels}
+}
+
+export default connect(mapStateToProps)(Reports) 

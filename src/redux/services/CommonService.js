@@ -55,7 +55,6 @@ CommonServices.ViewChannellist = function (packageName,fromDate,toDate) {
     return fetch(url)
         .then(async response => {
             const data = await response.json();
-            console.log("viewChannel",data);
             return data;
             if (!response.ok) {
                 const error = (data && data.message) || response.statusText;
@@ -71,7 +70,6 @@ CommonServices.ViewCountrylist = function (packageName,fromDate,toDate) {
     return fetch(url)
         .then(async response => {
             const data = await response.json();
-            console.log("country_list",data);
             return data;
             if (!response.ok) {
                 const error = (data && data.message) || response.statusText;
@@ -83,12 +81,10 @@ CommonServices.ViewCountrylist = function (packageName,fromDate,toDate) {
         });
 }
 CommonServices.ViewCategorylist = function (packageName,fromDate,toDate) {
-    console.log('packageName,fromDate,toDate', packageName,fromDate,toDate)
     let url = ApiUrl + EndPoints.category_list + '?package_name=' + packageName + '&fromDate='+ fromDate +'&toDate=' + toDate
     return fetch(url)
         .then(async response => {
             const data = await response.json();
-            console.log("category_list",data);
             return data;
             if (!response.ok) {
                 const error = (data && data.message) || response.statusText;
@@ -104,7 +100,6 @@ CommonServices.ViewBrandlist = function (packageName,fromDate,toDate) {
     return fetch(url)
         .then(async response => {
             const data = await response.json();
-            console.log("brand_list",data);
             return data;
             if (!response.ok) {
                 const error = (data && data.message) || response.statusText;
@@ -120,7 +115,6 @@ CommonServices.ViewPrioritylist = function (packageName,fromDate,toDate) {
     return fetch(url)
         .then(async response => {
             const data = await response.json();
-            console.log("priority_list",data);
             return data;
             if (!response.ok) {
                 const error = (data && data.message) || response.statusText;
@@ -136,7 +130,6 @@ CommonServices.ViewPublisherlist = function (packageName,fromDate,toDate) {
     return fetch(url)
         .then(async response => {
             const data = await response.json();
-            console.log("publisher_list",data);
             return data;
             if (!response.ok) {
                 const error = (data && data.message) || response.statusText;
@@ -152,7 +145,6 @@ CommonServices.ViewStatuslist = function (packageName,fromDate,toDate) {
     return fetch(url)
         .then(async response => {
             const data = await response.json();
-            console.log("status_list",data);
             return data;
             if (!response.ok) {
                 const error = (data && data.message) || response.statusText;
