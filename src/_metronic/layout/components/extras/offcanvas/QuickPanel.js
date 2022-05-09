@@ -62,7 +62,7 @@ export function QuickPanel() {
   const setTab = _tabName => {
     setSelectedTab(_tabName);
   };
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState('2020-05-03');
   const [endDate, setEndDate] = useState(new Date());
   const [myPackage, setMyPackage] = useState([{ value: 'itc', label: 'itc' }]);
   const packages = [

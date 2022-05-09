@@ -30,7 +30,7 @@ const Reports = ({report_list}) => {
     const dispatch = useDispatch();
     useEffect(() => {
  
-        dispatch(FetchReport(packageName,'2021-01-10','2022-01-10','all','all','all','all','all','all','all'))
+        dispatch(FetchReport(packageName,'2020-01-10','2022-01-10','all','all','all','all','all','all','all'))
    
 
     }, [])
@@ -38,7 +38,7 @@ const Reports = ({report_list}) => {
     console.log('reportsss',report_list);
     const columns = [
         {
-            dataField: "id",
+            dataField: "mfe_id",
             text: "ID",
             sort: true,
             style: {
@@ -48,26 +48,26 @@ const Reports = ({report_list}) => {
             headerStyle: {
                 // backgroundColor: 'green',
                 minWidth: '50px',
-                width: '100px'
+                width: '50px'
             },
 
-            formatter: (cellContent, row) => {
+            formatter: (cellContent, report_list) => {
                 return (
                     <div className="text-ellipsis" style={{ width: '20px' }} >
-                        <a onClick={handleEditShow} style={{ color: "#3699ff" }}> {row.id}</a>
+                        <a onClick={handleEditShow} style={{ color: "#3699ff" }}> {report_list.mfe_id}</a>
                     </div>
                 );
             }
         },
         {
-            dataField: "date",
+            dataField: "inserted_date",
             text: "Date",
             sort: true,
             style: {
                 width: '5%'
             },
 
-            formatter: (cellContent, row) => {
+            formatter: (cellContent, report_list) => {
                 return (
                     <div className="text-ellipsis">
                         {/* <OverlayTrigger
@@ -78,7 +78,7 @@ const Reports = ({report_list}) => {
                                 </Tooltip>
                             }
                         > */}
-                        <span>{row.date}</span>
+                        <span>{report_list.inserted_date}</span>
                         {/* </OverlayTrigger> */}
                     </div>
                 );
@@ -142,25 +142,25 @@ const Reports = ({report_list}) => {
             }
         },
         {
-            dataField: "channel",
+            dataField: "channel_name",
             text: "Channel",
             sort: true,
             style: {
                 width: '12%',
             },
 
-            formatter: (cellContent, row) => {
+            formatter: (cellContent, report_list) => {
                 return (
                     <div className="text-ellipsis">
                         <OverlayTrigger
                             placement="left"
                             overlay={
                                 <Tooltip id={`tooltip-left`}>
-                                    {row.channel}
+                                    {report_list.channel_name}
                                 </Tooltip>
                             }
                         >
-                            <span>{row.channel}</span>
+                            <span>{report_list.channel_name}</span>
                         </OverlayTrigger>
                     </div>
                 );
