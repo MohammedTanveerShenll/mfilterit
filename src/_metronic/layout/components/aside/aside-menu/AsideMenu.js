@@ -30,7 +30,8 @@ export function AsideMenu({ disableScroll }) {
     setPackage(e.value);
     const data = {
       "package_name": e.value,
-      "fromDate": localStorage.getItem("startDate"),
+      // "fromDate": localStorage.getItem("startDate"),
+      "fromDate": '2020-05-03',
       "toDate": localStorage.getItem("endDate"),
       "country": "all",
       "category": "all",

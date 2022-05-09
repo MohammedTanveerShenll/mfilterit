@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-sequences */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useReducer } from 'react';
 import Chart from 'react-apexcharts';
 import { ProgressBar, Spinner, Row, Col, Button } from 'react-bootstrap';
 import FilterDrawer from '../shared-componets/filterdrawer';
@@ -12,7 +12,8 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import SVG from "react-inlinesvg";
 import { toAbsoluteUrl } from "../../../../_metronic/_helpers";
-
+import Reducer from './Reducer';
+// const [state, dispatch] = useReducer(Reducer, initialState);
 const Dashboard = () => {
     const [channels, setChannels] = useState("all");
     const [categories, setCategories] = useState("all");
@@ -28,11 +29,15 @@ const Dashboard = () => {
     const toggleDrawer = (e) => {
         setPanel(false)
     }
+
     const handleSubmit = (data) => {
         //  setDashboarddata(data)
         console.log('inside dashboard');
+        console.log('asasasasas',data);
     }
-
+const getData = (data) => {
+console.log('inside dashboard',data);
+}
     const openFilter = () => {
         setPanel(true)
     }
@@ -51,6 +56,7 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
+       
         dispatch(FetchTotalIncidents(data))
         dispatch(FetchIncidentVolumes(data))
         dispatch(FetchActivecasesbychannel(data))
@@ -58,8 +64,8 @@ const Dashboard = () => {
         dispatch(FetchToptenLocation(data))
         dispatch(FetchCategorlevelcount(data))
         dispatch(FetchPublisherlevelcount(data))
-    }, [])
-    const dashboardData = useSelector(state => state.dashboard.DashboardData)
+    },)
+    const dashboardData = useSelector(state => state.dashboard.dashboardData)
 
     const incident_data = useSelector(state => state.dashboard.incident_data)
     const incidentloading = useSelector(state => state.dashboard.incidentloading)
@@ -82,7 +88,6 @@ const Dashboard = () => {
     const publisherlevelcount_data = useSelector(state => state.dashboard.publisherlevelcount_data)
     const publisherlevelcountloading = useSelector(state => state.dashboard.publisherlevelcount_loading)
 
-    console.log('dashboardData', dashboardData)
 
     const barchartData = {
         series: [{
@@ -503,7 +508,7 @@ const Dashboard = () => {
                     </Col>
                 </Col>
             </Row>
-            <FilterDrawer panel={panel} toggleDrawer={toggleDrawer} handleSubmit={handleSubmit} />
+            <FilterDrawer panel={panel} toggleDrawer={toggleDrawer} onSubmit={getData} />
         </div>
     );
 }

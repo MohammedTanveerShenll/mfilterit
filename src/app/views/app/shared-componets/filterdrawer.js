@@ -224,8 +224,10 @@ if(priorities && priorities['priorities'].includes(value)){
     const [startDate, setStartDate] = useState(weekstartdate);
     const [endDate, setEndDate] = useState(new Date());
     const classes = useStyles();
-    localStorage.setItem("startDate", moment(new Date(startDate)).format('YYYY-MM-DD'));
+    localStorage.setItem("startDate", '2020-05-03');
     localStorage.setItem("endDate", moment(new Date(endDate)).format('YYYY-MM-DD'));
+    // localStorage.setItem("startDate", moment(new Date(startDate)).format('YYYY-MM-DD'));
+    // localStorage.setItem("endDate", moment(new Date(endDate)).format('YYYY-MM-DD'));
 
     useEffect(() => {
         if (brand_list && country_name  && priority_list  && status_list  && category_list  && channel_list   && publisher_list ) 
@@ -251,13 +253,13 @@ if(priorities && priorities['priorities'].includes(value)){
     useEffect(() => {
         // dispatch(FetchFilterlist(packageName))
         // dispatch(FetchMenulist(e.value))
-        dispatch(FetchCountrylist(packageName,'2021-01-10','2022-01-10'))
-         dispatch(FetchCategorylist(packageName,'2021-01-10','2022-01-10'))
-        dispatch(FetchChannellist(packageName,'2021-01-10','2022-01-10'))
-       dispatch(FetchBrandlist(packageName,'2021-01-10','2022-01-10')) 
-          dispatch(FetchPrioritylist(packageName,'2021-01-10','2022-01-10'))
-         dispatch(FetchPublisherlist(packageName,'2021-01-10','2022-01-10'))
-         dispatch(FetchStatuslist(packageName,'2021-01-10','2022-01-10'))
+        dispatch(FetchCountrylist(packageName,'2020-01-10','2022-01-10'))
+         dispatch(FetchCategorylist(packageName,'2020-01-10','2022-01-10'))
+        dispatch(FetchChannellist(packageName,'2020-01-10','2022-01-10'))
+       dispatch(FetchBrandlist(packageName,'2020-01-10','2022-01-10')) 
+          dispatch(FetchPrioritylist(packageName,'2020-01-10','2022-01-10'))
+         dispatch(FetchPublisherlist(packageName,'2020-01-10','2022-01-10'))
+         dispatch(FetchStatuslist(packageName,'2020-01-10','2022-01-10'))
 
     }, [])
     useEffect(() => {
